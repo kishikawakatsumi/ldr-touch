@@ -25,38 +25,41 @@
 @implementation RootViewController
 
 static NSDateFormatter *dateFormatter = NULL;
+static NSDateFormatter *timeFormatter = NULL;
+static UIImage *unreadMark1 = NULL;
+static UIImage *unreadMark2 = NULL;
+static NSString *star = NULL;
+static NSString *starBlank = NULL;
 
 @synthesize feedListView;
 @synthesize toolBar;
 @synthesize refleshButton;
 @synthesize pinListButton;
 @synthesize modifiedDateLabel;
+@synthesize modifiedTimeLabel;
 
 @synthesize feedList;
 @synthesize organizedFeedList;
 @synthesize sectionHeaders;
 
-@synthesize unreadMark1;
-@synthesize unreadMark2;
-@synthesize star;
-@synthesize starBlank;
-
 + (void)initialize {
 	LOG_CURRENT_METHOD;
 	dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"US"] autorelease]];
-	[dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm:ss"];
+	//[dateFormatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"US"] autorelease]];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	timeFormatter = [[NSDateFormatter alloc] init];
+	//[timeFormatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"US"] autorelease]];
+	[timeFormatter setTimeStyle:NSDateFormatterMediumStyle];
+	unreadMark1 = [[UIImage imageNamed:@"unread.png"] retain];
+	unreadMark2 = [[UIImage imageNamed:@"unread2.png"] retain];
+	star = [[NSString stringWithUTF8String:"★"] retain];
+	starBlank = [[NSString stringWithUTF8String:"☆"] retain];
 }
 
 - (void)dealloc {
 	LOG_CURRENT_METHOD;
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	[starBlank release];
-	[star release];
-	[unreadMark2 release];
-	[unreadMark1 release];
 	
 	[sectionHeaders release];
 	[organizedFeedList release];
@@ -67,6 +70,7 @@ static NSDateFormatter *dateFormatter = NULL;
 	[conn setDelegate:nil];
 	[conn release];
 	
+	[modifiedTimeLabel release];
 	[modifiedDateLabel release];
 	[pinListButton release];
 	[refleshButton release];
@@ -352,13 +356,6 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 }
 
 - (NSString *)getStarsWithRate:(NSNumber *)rating {
-	if (!star) {
-		self.star = [NSString stringWithUTF8String:"★"];
-	}
-	if (!starBlank) {
-		self.starBlank = [NSString stringWithUTF8String:"☆"];
-	}
-	
 	NSMutableString *stars = [NSMutableString stringWithString:@""];
 	int i = 0;
 	for (; i < [rating intValue]; i++) {
@@ -463,13 +460,6 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 		cell = [[[FeedListCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f) reuseIdentifier:CellIdentifier] autorelease];
     }
 	
-	if (!unreadMark1) {
-		self.unreadMark1 = [UIImage imageNamed:@"unread.png"];
-	}
-	if (!unreadMark2) {
-		self.unreadMark2 = [UIImage imageNamed:@"unread2.png"];
-	}
-	
 	NSDictionary *feed = [[organizedFeedList objectForKey:[sectionHeaders objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
 	NSString *subscribe_id = [NSString stringWithFormat:@"%@", [feed objectForKey:@"subscribe_id"]];
 	
@@ -538,14 +528,22 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	
-	modifiedDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(47.0f, 11.0f, 156.0f, 21.0f)];
-	if (userSettings.lastModified) {
-		[modifiedDateLabel setText:[dateFormatter stringFromDate:userSettings.lastModified]];
-	}
+	modifiedDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(47.0f, 11.0f, 60.0f, 21.0f)];
 	[modifiedDateLabel setFont:[UIFont systemFontOfSize:12.0f]];
 	[modifiedDateLabel setTextColor:[UIColor whiteColor]];
 	[modifiedDateLabel setBackgroundColor:[UIColor clearColor]];
 	[toolBar addSubview:modifiedDateLabel];
+	
+	modifiedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(101.0f, 11.0f, 60.0f, 21.0f)];
+	[modifiedTimeLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+	[modifiedTimeLabel setTextColor:[UIColor whiteColor]];
+	[modifiedTimeLabel setBackgroundColor:[UIColor clearColor]];
+	[toolBar addSubview:modifiedTimeLabel];
+	
+	if (userSettings.lastModified) {
+		[modifiedDateLabel setText:[dateFormatter stringFromDate:userSettings.lastModified]];
+		[modifiedTimeLabel setText:[timeFormatter stringFromDate:userSettings.lastModified]];
+	}
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:)
 												 name:@"kNetworkReachabilityChangedNotification" object:nil];

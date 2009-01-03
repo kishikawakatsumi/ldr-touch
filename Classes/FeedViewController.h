@@ -9,7 +9,6 @@
 	NSDictionary *feed;
 	NSDictionary *entries;
 	NSArray *items;
-	UIImage *unreadMark;
 }
 
 @property (nonatomic, retain) FeedView *feedView;
@@ -17,7 +16,6 @@
 @property (retain) NSDictionary *feed;
 @property (retain) NSDictionary *entries;
 @property (retain) NSArray *items;
-@property (nonatomic, retain) UIImage *unreadMark;
 
 - (IBAction)markAsRead;
 - (IBAction)prevFeed:(id)sender;

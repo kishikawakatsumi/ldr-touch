@@ -17,16 +17,21 @@
 
 @implementation FeedViewController
 
+static UIImage *unreadMark = NULL;
+
 @synthesize feedView;
 @synthesize feedList;
 @synthesize feed;
 @synthesize entries;
 @synthesize items;
-@synthesize unreadMark;
+
++ (void)initialize {
+	LOG_CURRENT_METHOD;
+	unreadMark = [[UIImage imageNamed:@"unread.png"] retain];
+}
 
 - (void)dealloc {
 	LOG_CURRENT_METHOD;
-	[unreadMark release];
 	[items release];
 	[entries release];
 	[feed release];
@@ -202,10 +207,6 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	FeedCell *cell = (FeedCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [[[FeedCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f) reuseIdentifier:CellIdentifier] autorelease];
-	}
-	
-	if (!unreadMark) {
-		self.unreadMark = [UIImage imageNamed:@"unread.png"];
 	}
 	
 	NSDictionary *item = [items objectAtIndex:indexPath.row];
