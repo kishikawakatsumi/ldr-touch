@@ -154,6 +154,7 @@ static NSString *starBlank = NULL;
 	
 	userSettings.lastModified = [NSDate date];
 	[modifiedDateLabel setText:[dateFormatter stringFromDate:userSettings.lastModified]];
+	[modifiedTimeLabel setText:[timeFormatter stringFromDate:userSettings.lastModified]];
 	
 	[downloader cancel];
 	
