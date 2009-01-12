@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-#define CURRENT_VERSION 122
+#define CURRENT_VERSION 123
 
 typedef enum {
     UserSettingsSortOrderDate = 0,
@@ -35,6 +35,7 @@ typedef enum {
 	BOOL useMobileProxy;
 	NSDate *lastModified;
 	NSMutableArray *pinList;
+	BOOL shouldAutoRotation;
 }
 
 @property (nonatomic) NSInteger version;
@@ -51,5 +52,6 @@ typedef enum {
 @property (nonatomic) BOOL useMobileProxy;
 @property (nonatomic, retain) NSDate *lastModified;
 @property (nonatomic, retain, setter=setPinList:) NSMutableArray *pinList;
+@property (nonatomic) BOOL shouldAutoRotation;
 
 @end

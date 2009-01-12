@@ -215,7 +215,9 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+    return userSettings.shouldAutoRotation;
 }
 
 - (void)didReceiveMemoryWarning {

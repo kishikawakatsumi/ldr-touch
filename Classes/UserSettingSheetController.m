@@ -27,8 +27,6 @@
 
 - (void)saveSettings {
 	UserSettings *newSettings = [[UserSettings alloc] init]; 
-//	newSettings.userName = [self textAtFieldForRow:0 inSection:0];
-//	newSettings.password = [self textAtFieldForRow:0 inSection:1];
 	newSettings.userName = [[cells objectForKey:@"userName"] text];
 	newSettings.password = [[cells objectForKey:@"password"] text];
 
@@ -151,6 +149,13 @@
 	userSettings.useMobileProxy = sw.on;
 }
 
+- (void)shouldAutoRotationFlagValueChanged:(id)sender {
+	UISwitch *sw = (UISwitch *)sender;
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+	userSettings.shouldAutoRotation = sw.on;
+}
+
 #pragma mark <UITableViewDataSource> Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -165,7 +170,7 @@
 	} else if (section == 3) {
 		return 1;
 	} else {
-		return 1;
+		return 2;
 	}
 }
 
@@ -400,10 +405,10 @@
 		}
 		
 		return cell;
-	} else {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WebViewCell"];
+	} else if (indexPath.section == 4 && indexPath.row == 0) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UseMobileProxyCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"WebViewCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"UseMobileProxyCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
 			UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0, 178.0, 21.0)];
@@ -420,6 +425,29 @@
 			[useMobileProxy setOn:userSettings.useMobileProxy];
 			[cell addSubview:useMobileProxy];
 			[useMobileProxy release];
+		}
+		
+		return cell;
+	} else {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AutoRotationCell"];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"AutoRotationCell"] autorelease];
+			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+			
+			UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0, 178.0, 21.0)];
+			[cell addSubview:description];
+			
+			[description setAdjustsFontSizeToFitWidth:NO];
+			[description setFont:[UIFont boldSystemFontOfSize:13]];
+			[description setText:NSLocalizedString(@"AutoRotation", nil)];
+			
+			[description release];
+			
+			UISwitch *shouldAutoRotation = [[UISwitch alloc] initWithFrame:CGRectMake(206.0, 9.0, 94.0, 27.0)];
+			[shouldAutoRotation addTarget:self action:@selector(shouldAutoRotationFlagValueChanged:) forControlEvents:UIControlEventValueChanged];
+			[shouldAutoRotation setOn:userSettings.shouldAutoRotation];
+			[cell addSubview:shouldAutoRotation];
+			[shouldAutoRotation release];
 		}
 		
 		return cell;

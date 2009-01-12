@@ -535,7 +535,7 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	[modifiedDateLabel setBackgroundColor:[UIColor clearColor]];
 	[toolBar addSubview:modifiedDateLabel];
 	
-	modifiedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(101.0f, 11.0f, 60.0f, 21.0f)];
+	modifiedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(101.0f, 11.0f, 100.0f, 21.0f)];
 	[modifiedTimeLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
 	[modifiedTimeLabel setTextColor:[UIColor whiteColor]];
 	[modifiedTimeLabel setBackgroundColor:[UIColor clearColor]];

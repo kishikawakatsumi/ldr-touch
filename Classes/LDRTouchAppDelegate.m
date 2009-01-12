@@ -135,8 +135,9 @@ static LoginManager *loginManager = NULL;
 			newSettings.numberOfUnread = userSettings.numberOfUnread;
 			newSettings.showBadgeFlag = userSettings.showBadgeFlag;
 			newSettings.useMobileProxy = userSettings.useMobileProxy;
-			newSettings.lastModified = nil;
-			newSettings.pinList = [[NSMutableArray alloc] init];
+			newSettings.lastModified = userSettings.lastModified;
+			newSettings.pinList = userSettings.pinList;
+			newSettings.shouldAutoRotation = YES;
 			self.userSettings = newSettings;
 		}
 	} else {

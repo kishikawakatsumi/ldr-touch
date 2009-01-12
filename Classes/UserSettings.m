@@ -17,6 +17,7 @@
 @synthesize useMobileProxy;
 @synthesize lastModified;
 @synthesize pinList;
+@synthesize shouldAutoRotation;
 
 - (id)init {
 	if (self = [super init]) {
@@ -34,6 +35,7 @@
 		useMobileProxy = NO;
 		lastModified = nil;
 		pinList = [[NSMutableArray alloc] init];
+		shouldAutoRotation = YES;
 	}
 	return self;
 }
@@ -53,6 +55,7 @@
 	useMobileProxy = [coder decodeBoolForKey:@"useMobileProxy"];
 	lastModified = [[coder decodeObjectForKey:@"lastModified"] retain];
 	pinList = [[coder decodeObjectForKey:@"pinList"] retain];
+	shouldAutoRotation = [coder decodeBoolForKey:@"shouldAutoRotation"];
 	return self;
 }
 
@@ -70,6 +73,7 @@
 	[encoder encodeBool:useMobileProxy forKey:@"useMobileProxy"];
 	[encoder encodeObject:lastModified forKey:@"lastModified"];
 	[encoder encodeObject:pinList forKey:@"pinList"];
+	[encoder encodeBool:shouldAutoRotation forKey:@"shouldAutoRotation"];
 }
 
 - (void)dealloc {
