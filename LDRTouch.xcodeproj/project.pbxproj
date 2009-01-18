@@ -198,7 +198,7 @@
 				14BACA770EC4B2D80037E340 /* Views */,
 				14BAC4FF0EC09D510037E340 /* Cells */,
 				14BAC86B0EC47F930037E340 /* Settings */,
-				14BAC86A0EC47F720037E340 /* Util */,
+				14BAC86A0EC47F720037E340 /* Utils */,
 				14BAC1A70EC079500037E340 /* JSON */,
 			);
 			path = Classes;
@@ -276,7 +276,7 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		14BAC86A0EC47F720037E340 /* Util */ = {
+		14BAC86A0EC47F720037E340 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				14BAC1B20EC079610037E340 /* HttpClient.h */,
@@ -288,7 +288,7 @@
 				14BAC1E70EC07BD20037E340 /* Reachability.h */,
 				14BAC1E80EC07BD20037E340 /* Reachability.m */,
 			);
-			name = Util;
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		14BAC86B0EC47F930037E340 /* Settings */ = {
