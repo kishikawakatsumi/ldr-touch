@@ -42,6 +42,8 @@ enum {
     EESCAPE,
     ETRAILCOMMA,
     ETRAILGARBAGE,
+    EEOF,
+    EINPUT
 };
 
 /**
@@ -70,40 +72,45 @@ way you would expect. JSON numbers turn into NSDecimalNumber instances,
 as we can thus avoid any loss of precision.
 
 Strictly speaking correctly formed JSON text must have <strong>exactly
-one top-level container</strong>. (Either an Array or an Object.) Bare
-nulls, numbers, booleans and strings are not valid JSON on their own.
+one top-level container</strong>. (Either an Array or an Object.) Scalars,
+i.e. nulls, numbers, booleans and strings, are not valid JSON on their own.
 It can be quite convenient to pretend that such fragments are valid
-JSON however. This class lets you do so.
+JSON however, and this class lets you do so.
 
 This class does its best to be as strict as possible, both in what it
 accepts and what it generates. (Other than the above mentioned support
 for JSON fragments.) For example, it does not support trailing commas
 in arrays or objects. Nor does it support embedded comments, or
 anything else not in the JSON specification.
-
+ 
 */
 @interface SBJSON : NSObject {
-    // Attributes
     BOOL humanReadable;
-    unsigned maxDepth;
+    BOOL sortKeys;
+    NSUInteger maxDepth;
 
 @private
     // Used temporarily during scanning/generation
-    unsigned depth;
+    NSUInteger depth;
     const char *c;
 }
 
 /// Whether we are generating human-readable (multiline) JSON
-- (BOOL)humanReadable;
+/**
+ Set whether or not to generate human-readable JSON. The default is NO, which produces
+ JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
+ JSON with linebreaks after each array value and dictionary key/value pair, indented two
+ spaces per nesting level.
+ */
+@property BOOL humanReadable;
 
-/// Set whether to generate human-readable JSON or not
-- (void)setHumanReadable:(BOOL)y;
+/// Whether or not to sort the dictionary keys in the output
+/** The default is to not sort the keys. */
+@property BOOL sortKeys;
 
 /// The maximum depth the parser will go to
-- (unsigned)maxDepth;
-
-/// Set the maximum depth the parser will go to
-- (void)setMaxDepth:(unsigned)y;
+/** Defaults to 512. */
+@property NSUInteger maxDepth;
 
 /// Return JSON representation of an array  or dictionary
 - (NSString*)stringWithObject:(id)value error:(NSError**)error;
@@ -116,5 +123,15 @@ anything else not in the JSON specification.
 
 /// Return the fragment represented by the given string
 - (id)fragmentWithString:(NSString*)jsonrep error:(NSError**)error;
+
+/// Return JSON representation (or fragment) for the given object
+- (NSString*)stringWithObject:(id)value
+                  allowScalar:(BOOL)x
+    					error:(NSError**)error;
+
+/// Parse the string and return the represented object (or scalar)
+- (id)objectWithString:(id)value
+           allowScalar:(BOOL)x
+    			 error:(NSError**)error;
 
 @end

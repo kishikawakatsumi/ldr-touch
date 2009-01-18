@@ -107,6 +107,32 @@ static char ctrl[0x22];
 
 #pragma mark Generator
 
+
+/**
+ Returns a string containing JSON representation of the passed in value, or nil on error.
+ If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
+ 
+ @param value any instance that can be represented as a JSON fragment
+ @param allowScalar wether to return json fragments for scalar objects
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
+- (NSString*)stringWithObject:(id)value allowScalar:(BOOL)allowScalar error:(NSError**)error {
+    depth = 0;
+    NSMutableString *json = [NSMutableString stringWithCapacity:128];
+    
+    NSError *err2 = nil;
+    if (!allowScalar && ![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
+        err2 = err(EFRAGMENT, @"Not valid type for JSON");        
+        
+    } else if ([self appendValue:value into:json error:&err2]) {
+        return json;
+    }
+    
+    if (error)
+        *error = err2;
+    return nil;
+}
+
 /**
  Returns a string containing JSON representation of the passed in value, or nil on error.
  If nil is returned and @p error is not NULL, @p error can be interrogated to find the cause of the error.
@@ -115,16 +141,7 @@ static char ctrl[0x22];
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (NSString*)stringWithFragment:(id)value error:(NSError**)error {
-    depth = 0;
-    NSMutableString *json = [NSMutableString stringWithCapacity:128];
-    
-    NSError *err;
-    if ([self appendValue:value into:json error:&err])
-        return json;
-    
-    if (error)
-        *error = err;
-    return nil;
+    return [self stringWithObject:value allowScalar:YES error:error];
 }
 
 /**
@@ -135,20 +152,9 @@ static char ctrl[0x22];
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (NSString*)stringWithObject:(id)value error:(NSError**)error {
-    NSError *err2;
-    if (![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
-        err2 = err(EFRAGMENT, @"Not valid JSON (try -stringWithFragment:error:)");        
-
-    } else {
-        NSString *json = [self stringWithFragment:value error:&err2];
-        if (json)
-            return json;
-    }
-
-    if (error)
-        *error = err2;
-    return nil;
+    return [self stringWithObject:value allowScalar:NO error:error];
 }
+
 
 - (NSString*)indent {
     return [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0];
@@ -177,7 +183,7 @@ static char ctrl[0x22];
         [json appendString:@"null"];
         
     } else {
-        *error = err(EUNSUPPORTED, [NSString stringWithFormat:@"JSON serialisation not supported for %@", [fragment className]]);
+        *error = err(EUNSUPPORTED, [NSString stringWithFormat:@"JSON serialisation not supported for %@", [fragment class]]);
         return NO;
     }
     return YES;
@@ -188,11 +194,12 @@ static char ctrl[0x22];
     depth++;
     
     BOOL addComma = NO;    
-    NSEnumerator *values = [fragment objectEnumerator];
-    for (id value; value = [values nextObject]; addComma = YES) {
+    for (id value in fragment) {
         if (addComma)
             [json appendString:@","];
-        
+        else
+            addComma = YES;
+
         if ([self humanReadable])
             [json appendString:[self indent]];
         
@@ -214,11 +221,15 @@ static char ctrl[0x22];
 
     NSString *colon = [self humanReadable] ? @" : " : @":";
     BOOL addComma = NO;
-    NSEnumerator *values = [fragment keyEnumerator];
-    for (id value; value = [values nextObject]; addComma = YES) {
-        
+    NSArray *keys = [fragment allKeys];
+    if (self.sortKeys)
+        keys = [keys sortedArrayUsingSelector:@selector(compare:)];
+    
+    for (id value in keys) {
         if (addComma)
             [json appendString:@","];
+        else
+            addComma = YES;
 
         if ([self humanReadable])
             [json appendString:[self indent]];
@@ -261,7 +272,8 @@ static char ctrl[0x22];
         [json appendString:fragment];
         
     } else {
-        for (unsigned i = 0; i < [fragment length]; i++) {
+        NSUInteger length = [fragment length];
+        for (NSUInteger i = 0; i < length; i++) {
             unichar uc = [fragment characterAtIndex:i];
             switch (uc) {
                 case '"':   [json appendString:@"\\\""];       break;
@@ -287,7 +299,52 @@ static char ctrl[0x22];
     return YES;
 }
 
-#pragma mark Scanner
+#pragma mark Parser
+
+/**
+ Returns the object represented by the passed-in string or nil on error. The returned object can be
+ a string, number, boolean, null, array or dictionary.
+ 
+ @param repr the json string to parse
+ @param allowScalar whether to return objects for JSON fragments
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
+- (id)objectWithString:(id)repr allowScalar:(BOOL)allowScalar error:(NSError**)error {
+
+    if (!repr) {
+        if (error)
+            *error = err(EINPUT, @"Input was 'nil'");
+        return nil;
+    }
+    
+    depth = 0;
+    c = [repr UTF8String];
+    
+    id o;
+    NSError *err2 = nil;
+    if (![self scanValue:&o error:&err2]) {
+        if (error)
+            *error = err2;
+        return nil;
+    }
+        
+    // We found some valid JSON. But did it also contain something else?
+    if (![self scanIsAtEnd]) {
+        if (error)
+            *error = err(ETRAILGARBAGE, @"Garbage after JSON");
+        return nil;
+    }
+
+    // If we don't allow scalars, check that the object we've found is a valid JSON container.
+    if (!allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
+        if (error)
+            *error = err(EFRAGMENT, @"Valid fragment, but not JSON");
+        return nil;
+    }
+
+    NSAssert1(o, @"Should have a valid object from %@", repr);
+    return o;
+}
 
 /**
  Returns the object represented by the passed-in string or nil on error. The returned object can be
@@ -297,23 +354,7 @@ static char ctrl[0x22];
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (id)fragmentWithString:(NSString*)repr error:(NSError**)error {
-    c = [repr UTF8String];
-    depth = 0;
-    
-    id o;
-    NSError *err2 = nil;
-    BOOL success = [self scanValue:&o error:&err2];
-    
-    if (success && ![self scanIsAtEnd]) {
-        err2 = err(ETRAILGARBAGE, @"Garbage after JSON fragment");
-        success = NO;
-    }
-        
-    if (success)
-        return o;
-    if (error)
-        *error = err2;
-    return nil;
+    return [self objectWithString:repr allowScalar:YES error:error];
 }
 
 /**
@@ -324,23 +365,12 @@ static char ctrl[0x22];
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (id)objectWithString:(NSString*)repr error:(NSError**)error {
-    
-    NSError *err2 = nil;
-    id o = [self fragmentWithString:repr error:&err2];
-
-    if (o && ([o isKindOfClass:[NSDictionary class]] || [o isKindOfClass:[NSArray class]]))
-        return o;
-    
-    if (o)
-        err2 = err(EFRAGMENT, @"Valid fragment, but not JSON");
-    
-    if (error)
-        *error = err2;
-
-    return nil;
+    return [self objectWithString:repr allowScalar:NO error:error];
 }
 
-
+/*
+ In contrast to the public methods, it is an error to omit the error parameter here.
+ */
 - (BOOL)scanValue:(NSObject **)o error:(NSError **)error
 {
     skipWhitespace(c);
@@ -373,11 +403,18 @@ static char ctrl[0x22];
             *error = err(EPARSENUM, @"Leading + disallowed in number");
             return NO;
             break;
+        case 0x0:
+            *error = err(EEOF, @"Unexpected end of string");
+            return NO;
+            break;
         default:
             *error = err(EPARSE, @"Unrecognised leading character");
             return NO;
             break;
     }
+    
+    NSAssert(0, @"Should never get here");
+    return NO;
 }
 
 - (BOOL)scanRestOfTrue:(NSNumber **)o error:(NSError **)error
@@ -448,7 +485,7 @@ static char ctrl[0x22];
         }        
     }
     
-    *error = err(EPARSE, @"End of input while parsing array");
+    *error = err(EEOF, @"End of input while parsing array");
     return NO;
 }
 
@@ -500,7 +537,7 @@ static char ctrl[0x22];
         }        
     }
     
-    *error = err(EPARSE, @"End of input while parsing object");
+    *error = err(EEOF, @"End of input while parsing object");
     return NO;
 }
 
@@ -550,7 +587,7 @@ static char ctrl[0x22];
                     }
                     c--; // hack.
                     break;
-                    default:
+                default:
                     *error = err(EESCAPE, [NSString stringWithFormat:@"Illegal escape sequence '0x%x'", uc]);
                     return NO;
                     break;
@@ -567,7 +604,7 @@ static char ctrl[0x22];
         }
     } while (*c);
     
-    *error = err(EPARSE, @"Unexpected EOF while parsing string");
+    *error = err(EEOF, @"Unexpected EOF while parsing string");
     return NO;
 }
 
@@ -696,35 +733,8 @@ static char ctrl[0x22];
 
 #pragma mark Properties
 
-/**
- Returns whether the instance is configured to generate human readable JSON.
- */
-- (BOOL)humanReadable {
-    return humanReadable;
-}
-
-/**
- Set whether or not to generate human-readable JSON. The default is NO, which produces
- JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
- JSON with linebreaks after each array value and dictionary key/value pair, indented two
- spaces per nesting level.
- */
-- (void)setHumanReadable:(BOOL)y {
-    humanReadable = y;
-}
-
-/**
- Returns the maximum depth allowed when parsing JSON.
- */
-- (unsigned)maxDepth {
-    return maxDepth;
-}
-
-/**
- Set the maximum depth allowed when parsing JSON. The default value is 512.
- */
-- (void)setMaxDepth:(unsigned)y {
-    maxDepth = y;
-}
+@synthesize humanReadable;
+@synthesize sortKeys;
+@synthesize maxDepth;
 
 @end
