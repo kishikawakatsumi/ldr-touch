@@ -73,6 +73,10 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 
 #pragma mark Action Methods
 
+- (void)backToTop {
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)markAsRead {
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	NSString *subscribe_id = [NSString stringWithFormat:@"%@", [feed objectForKey:@"subscribe_id"]];
@@ -124,6 +128,7 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 
 - (void)loadEntries:(NSString *)subscribe_id {
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	[sharedLDRTouchApp saveUserSettings];
 	
 	NSDictionary *listofEntry = [CacheManager loadEntries:subscribe_id];
@@ -147,9 +152,10 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	[self reset];
 	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:@"http://reader.livedoor.com/api/unread" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
-																	subscribe_id, @"subscribe_id", 
-																	loginManager.api_key, @"ApiKey", nil]];
+	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/unread"]
+	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+				subscribe_id, @"subscribe_id", 
+				loginManager.api_key, @"ApiKey", nil]];
 }
 
 - (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
@@ -276,6 +282,10 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+//	[self.navigationItem setLeftBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:@"Top" 
+//																				style:UIBarButtonItemStyleBordered
+//																			   target:self 
+//																			   action:@selector(backToTop)] autorelease] animated:NO];
 	[feedView.tableView deselectRowAtIndexPath:[feedView.tableView indexPathForSelectedRow] animated:YES];
 	[feedView.tableView reloadData];
 	[self enableButtons];

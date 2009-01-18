@@ -1,23 +1,23 @@
 #import <UIKit/UIKit.h>
 
-#define CURRENT_VERSION 123
+#define CURRENT_VERSION 130
 
 typedef enum {
-    UserSettingsSortOrderDate = 0,
-    UserSettingsSortOrderNumberOfUnread = 1,
-    UserSettingsSortOrderNumberOfSubscribers = 2,
-    UserSettingsSortOrderTitle = 3,
-    UserSettingsSortOrderRate = 4,
-    UserSettingsSortOrderDateAsc = 5,
-    UserSettingsSortOrderNumberOfUnreadAsc = 6,
-    UserSettingsSortOrderNumberOfSubscribersAsc = 7,
+    UserSettingsSortOrderDate,
+    UserSettingsSortOrderNumberOfUnread,
+    UserSettingsSortOrderNumberOfSubscribers,
+    UserSettingsSortOrderTitle,
+    UserSettingsSortOrderRate,
+    UserSettingsSortOrderDateAsc,
+    UserSettingsSortOrderNumberOfUnreadAsc,
+    UserSettingsSortOrderNumberOfSubscribersAsc,
 } UserSettingsSortOrder;
 
 typedef enum {
-    UserSettingsViewModeFlat = 0,
-    UserSettingsViewModeFolder = 1,
-    UserSettingsViewModeRate = 2,
-    UserSettingsViewModeSubscribers = 3,
+    UserSettingsViewModeFlat,
+    UserSettingsViewModeFolder,
+    UserSettingsViewModeRate,
+    UserSettingsViewModeSubscribers,
 } UserSettingsViewMode;
 
 @interface UserSettings : NSObject <NSCoding> {
@@ -27,15 +27,18 @@ typedef enum {
 	BOOL markAsReadAuto;
 	UserSettingsSortOrder sortOrder;
 	UserSettingsViewMode viewMode;
-	NSMutableDictionary *listOfRead;
-	NSMutableDictionary *unfinishedOperations;
-	NSMutableDictionary *requestedOperations;
-	NSInteger numberOfUnread;
 	BOOL showBadgeFlag;
 	BOOL useMobileProxy;
+	BOOL shouldAutoRotation;
+	NSString *serviceURI;
+	
+	NSMutableDictionary *listOfRead;
+	NSInteger numberOfUnread;
+	NSMutableDictionary *unfinishedOperations;
+	NSMutableDictionary *requestedOperations;
+	
 	NSDate *lastModified;
 	NSMutableArray *pinList;
-	BOOL shouldAutoRotation;
 }
 
 @property (nonatomic) NSInteger version;
@@ -44,14 +47,17 @@ typedef enum {
 @property (nonatomic) BOOL markAsReadAuto;
 @property (nonatomic) UserSettingsSortOrder sortOrder;
 @property (nonatomic) UserSettingsViewMode viewMode;
-@property (nonatomic, retain) NSMutableDictionary *listOfRead;
-@property (nonatomic, retain) NSMutableDictionary *unfinishedOperations;
-@property (nonatomic, retain) NSMutableDictionary *requestedOperations;
-@property (nonatomic) NSInteger numberOfUnread;
 @property (nonatomic) BOOL showBadgeFlag;
 @property (nonatomic) BOOL useMobileProxy;
+@property (nonatomic) BOOL shouldAutoRotation;
+@property (nonatomic, retain) NSString *serviceURI;
+
+@property (nonatomic, retain) NSMutableDictionary *listOfRead;
+@property (nonatomic) NSInteger numberOfUnread;
+@property (nonatomic, retain) NSMutableDictionary *unfinishedOperations;
+@property (nonatomic, retain) NSMutableDictionary *requestedOperations;
+
 @property (nonatomic, retain) NSDate *lastModified;
 @property (nonatomic, retain, setter=setPinList:) NSMutableArray *pinList;
-@property (nonatomic) BOOL shouldAutoRotation;
 
 @end

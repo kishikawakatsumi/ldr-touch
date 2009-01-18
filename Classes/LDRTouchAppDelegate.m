@@ -137,7 +137,8 @@ static LoginManager *loginManager = NULL;
 			newSettings.useMobileProxy = userSettings.useMobileProxy;
 			newSettings.lastModified = userSettings.lastModified;
 			newSettings.pinList = userSettings.pinList;
-			newSettings.shouldAutoRotation = YES;
+			newSettings.shouldAutoRotation = userSettings.shouldAutoRotation;
+			//newSettings.serviceURI = userSettings.serviceURI;
 			self.userSettings = newSettings;
 		}
 	} else {
@@ -152,7 +153,7 @@ static LoginManager *loginManager = NULL;
 	
 	[self loadUserSettings];
 	
-	[[Reachability sharedReachability] setHostName:@"reader.livedoor.com"];
+	[[Reachability sharedReachability] setHostName:userSettings.serviceURI];
 	[[Reachability sharedReachability] setNetworkStatusNotificationsEnabled:YES];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:)
 												 name:@"kNetworkReachabilityChangedNotification" object:nil];

@@ -67,16 +67,20 @@
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:@"http://reader.livedoor.com/api/pin/add" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
-																	 link, @"link",
-																	 title, @"title",
-																	 loginManager.api_key, @"ApiKey", nil]];
+	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/pin/add"]
+	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+				link, @"link",
+				title, @"title",
+				loginManager.api_key, @"ApiKey", nil]];
 }
 
 - (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	LOG(@"add pin: %@ <%@>, %d", title, link, [response statusCode]);
+	LOG(@"add pin: %@ <%@>, status = %d", title, link, [response statusCode]);
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	NSMutableDictionary *unfinishedOperations = [sharedLDRTouchApp.userSettings unfinishedOperations];

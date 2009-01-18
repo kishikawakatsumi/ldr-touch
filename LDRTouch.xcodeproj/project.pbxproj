@@ -80,6 +80,7 @@
 		1409D20D0ECF5EF7004866AF /* PageInformationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageInformationCell.h; sourceTree = "<group>"; };
 		1409D20E0ECF5EF7004866AF /* PageInformationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageInformationCell.m; sourceTree = "<group>"; };
 		1409D2140ECF6184004866AF /* InformationSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationSheet.xib; sourceTree = "<group>"; };
+		141322660F23098D00E82250 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		14B2FB7A0EFD2F7200AD611D /* reflesh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reflesh.png; sourceTree = "<group>"; };
 		14BAC19D0EC079410037E340 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		14BAC19E0EC079410037E340 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
@@ -192,6 +193,7 @@
 				14BAC57B0EC0A7320037E340 /* CacheManager.m */,
 				14BAC52A0EC09FFE0037E340 /* FeedDownloader.h */,
 				14BAC52B0EC09FFE0037E340 /* FeedDownloader.m */,
+				141322660F23098D00E82250 /* Constants.h */,
 				14BACCD50EC9BB330037E340 /* Debug.h */,
 				14BACAE50EC4BD480037E340 /* Operations */,
 				14BAC5000EC09D5D0037E340 /* View Controllers */,

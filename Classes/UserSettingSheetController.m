@@ -3,6 +3,7 @@
 #import "LoginManager.h"
 #import "UserSettings.h"
 #import "RootViewController.h"
+#import "Constants.h"
 #import "Debug.h"
 
 @implementation UserSettingSheetController
@@ -19,16 +20,12 @@
 
 #pragma mark Utility Methods
 
-- (NSString *)textAtFieldForRow:(NSInteger)row inSection:(NSInteger)section {
-	UITableViewCell *cell = [userSettingSheet cellForRowAtIndexPath:
-							 [NSIndexPath indexPathForRow:row inSection:section]];
-	return [[[cell subviews] objectAtIndex:2] text];
-}
-
 - (void)saveSettings {
 	UserSettings *newSettings = [[UserSettings alloc] init]; 
 	newSettings.userName = [[cells objectForKey:@"userName"] text];
 	newSettings.password = [[cells objectForKey:@"password"] text];
+	
+	newSettings.serviceURI = [[cells objectForKey:@"serviceURI"] text];
 
 	newSettings.sortOrder = sortOrder;
 	newSettings.viewMode = viewMode;
@@ -37,14 +34,15 @@
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	
 	BOOL shouldRefleshData = 
-	(![newSettings.userName isEqualToString:userSettings.userName] ||
-	 ![newSettings.password isEqualToString:userSettings.password])
+	(![newSettings.serviceURI isEqualToString:userSettings.serviceURI])
+	|| (![newSettings.userName isEqualToString:userSettings.userName] || ![newSettings.password isEqualToString:userSettings.password])
 	&& ([newSettings.userName length] != 0 && [newSettings.password length] != 0);
 	
 	BOOL shouldOrganizeData = newSettings.sortOrder != userSettings.sortOrder || newSettings.viewMode != userSettings.viewMode;
 	
 	userSettings.userName = newSettings.userName;
 	userSettings.password = newSettings.password;
+	userSettings.serviceURI = newSettings.serviceURI;
 	userSettings.sortOrder = newSettings.sortOrder;
 	userSettings.viewMode = newSettings.viewMode;
 	
@@ -69,8 +67,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if ([actionSheet.title isEqualToString:NSLocalizedString(@"SortOrder", nil)]) {
-		UITableViewCell *cell = [userSettingSheet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]];
-		UILabel *sortOrderLabel = [[cell subviews] objectAtIndex:4];
+		UILabel *sortOrderLabel = [cells objectForKey:@"SortOrder"];
 		
 		if (buttonIndex == 0) {
 			[sortOrderLabel setText:NSLocalizedString(@"SortOrderDate", nil)];
@@ -98,8 +95,7 @@
 			sortOrder = UserSettingsSortOrderNumberOfSubscribersAsc;
 		}
 	} else {
-		UITableViewCell *cell = [userSettingSheet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:2]];
-		UILabel *viewModeLabel = [[cell subviews] objectAtIndex:4];
+		UILabel *viewModeLabel = [cells objectForKey:@"ViewMode"];
 		
 		if (buttonIndex == 0) {
 			[viewModeLabel setText:NSLocalizedString(@"ViewModeFlat", nil)];
@@ -117,6 +113,14 @@
 	}
 
 	[userSettingSheet deselectRowAtIndexPath:[userSettingSheet indexPathForSelectedRow] animated:YES];
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+	UILabel *serviceURIInput = [cells objectForKey:@"serviceURI"];
+	if ([[serviceURIInput text] length] == 0) {
+		serviceURIInput.text = SERVICE_URI_DEFAULT;
+	}
+	return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -159,15 +163,15 @@
 #pragma mark <UITableViewDataSource> Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 5;
+	return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section == 0 || section == 1) {
-		return 1;
-	} else if (section == 2) {
+	if (section == 0) {
 		return 3;
-	} else if (section == 3) {
+	} else if (section == 1) {
+		return 3;
+	} else if (section == 2) {
 		return 1;
 	} else {
 		return 2;
@@ -176,12 +180,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) {
-		return NSLocalizedString(@"UserName", nil);
+		return NSLocalizedString(@"Account", nil);
 	} else if (section == 1) {
-		return NSLocalizedString(@"Password", nil);
-	} else if (section == 2) {
 		return NSLocalizedString(@"Feed", nil);
-	} else if (section == 3) {
+	} else if (section == 2) {
 		return NSLocalizedString(@"UnreadCount", nil);
 	} else {
 		return NSLocalizedString(@"WebView", nil);
@@ -204,7 +206,7 @@
 	LDRTouchAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 	UserSettings *userSettings = delegate.userSettings;
 	
-	if (indexPath.section == 0) {
+	if (indexPath.section == 0 && indexPath.row == 0) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserNameCell"];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"UserNameCell"] autorelease];
@@ -230,16 +232,16 @@
 			
 			[inputField setText:userSettings.userName];
 			
-			[inputField release];
-			
 			[cells setObject:inputField forKey:@"userName"];
+			
+			[inputField release];
 		}
 		
 		return cell;
-	} else if (indexPath.section == 1) {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PasseordCell"];
+	} else if (indexPath.section == 0 && indexPath.row == 1) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PassewordCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"PasseordCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"PassewordCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
 			UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 0.0, 282.0, 44.0)];
@@ -263,13 +265,45 @@
 			
 			[inputField setText:userSettings.password];
 			
-			[inputField release];
-			
 			[cells setObject:inputField forKey:@"password"];
+			
+			[inputField release];
 		}
 		
 		return cell;
-	} else if (indexPath.section == 2 && indexPath.row == 0) {
+	} else if (indexPath.section == 0 && indexPath.row == 2) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceURICell"];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"ServiceURICell"] autorelease];
+			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+			
+			UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 0.0, 282.0, 44.0)];
+			inputField.delegate = self;
+			[cell addSubview:inputField];
+			
+			[inputField setAdjustsFontSizeToFitWidth:NO];
+			[inputField setBorderStyle:UITextBorderStyleNone];
+			[inputField setClearButtonMode:UITextFieldViewModeAlways];
+			[inputField setClearsOnBeginEditing:NO];
+			[inputField setPlaceholder:NSLocalizedString(@"ServiceURI", nil)];
+			[inputField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+			[inputField setAutocorrectionType:UITextAutocorrectionTypeNo];
+			[inputField setEnablesReturnKeyAutomatically:YES];
+			[inputField setKeyboardType:UIKeyboardTypeURL];
+			[inputField setReturnKeyType:UIReturnKeyDone];
+			
+			[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+			[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+			
+			[inputField setText:userSettings.serviceURI];
+			
+			[cells setObject:inputField forKey:@"serviceURI"];
+			
+			[inputField release];
+		}
+		
+		return cell;
+	} else if (indexPath.section == 1 && indexPath.row == 0) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReadFlagCell"];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"ReadFlagCell"] autorelease];
@@ -292,7 +326,7 @@
 		}
 		
 		return cell;
-	} else if (indexPath.section == 2 && indexPath.row == 1) {
+	} else if (indexPath.section == 1 && indexPath.row == 1) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SortOrderCell"];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"SortOrderCell"] autorelease];
@@ -337,11 +371,13 @@
 				[sortOrderLabel setText:NSLocalizedString(@"SortOrderNumberOfSubscribersAsc", nil)];
 			}
 			
+			[cells setObject:sortOrderLabel forKey:@"SortOrder"];
+			
 			[sortOrderLabel release];
 		}
 		
 		return cell;
-	} else if (indexPath.section == 2 && indexPath.row == 2) {
+	} else if (indexPath.section == 1 && indexPath.row == 2) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewModeCell"];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"ViewModeCell"] autorelease];
@@ -378,11 +414,13 @@
 				[viewModeLabel setText:NSLocalizedString(@"ViewModeSubscribers", nil)];
 			}
 			
+			[cells setObject:viewModeLabel forKey:@"ViewMode"];
+			
 			[viewModeLabel release];
 		}
 		
 		return cell;
-	} else if (indexPath.section == 3) {
+	} else if (indexPath.section == 2) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UnreadCountCell"];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"UnreadCountCell"] autorelease];
@@ -405,7 +443,7 @@
 		}
 		
 		return cell;
-	} else if (indexPath.section == 4 && indexPath.row == 0) {
+	} else if (indexPath.section == 3 && indexPath.row == 0) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UseMobileProxyCell"];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"UseMobileProxyCell"] autorelease];
@@ -457,7 +495,7 @@
 #pragma mark <UITableViewDelegate> Methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 2 && indexPath.row == 1) {
+	if (indexPath.section == 1 && indexPath.row == 1) {
 		UIActionSheet *actionSheet = [[UIActionSheet alloc]
 									  initWithTitle:NSLocalizedString(@"SortOrder", nil)
 									  delegate:self
@@ -475,7 +513,7 @@
 		actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
 		[actionSheet showInView:self.view];
 		[actionSheet release];
-	} else if (indexPath.section == 2 && indexPath.row == 2) {
+	} else if (indexPath.section == 1 && indexPath.row == 2) {
 		UIActionSheet *actionSheet = [[UIActionSheet alloc]
 									  initWithTitle:NSLocalizedString(@"ViewMode", nil)
 									  delegate:self

@@ -66,17 +66,20 @@
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+	
 	conn = [[HttpClient alloc] initWithDelegate:self];
 	NSString *apiURI;
 	NSDictionary *params;
 	if (timestamps) {
-		apiURI = @"http://reader.livedoor.com/api/touch";
+		apiURI = [NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/touch"];
 		params = [NSDictionary dictionaryWithObjectsAndKeys:
 				  subscribe_id, @"subscribe_id",
 				  [timestamps componentsJoinedByString:@","], @"timestamp",
 				  loginManager.api_key, @"ApiKey", nil];
 	} else {
-		apiURI = @"http://reader.livedoor.com/api/touch_all";
+		apiURI = [NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/touch_all"];
 		params = [NSDictionary dictionaryWithObjectsAndKeys:subscribe_id, @"subscribe_id", loginManager.api_key, @"ApiKey", nil];
 	}
 	
@@ -85,7 +88,7 @@
 
 - (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	LOG(@"mark as read: %@ %d", subscribe_id, [response statusCode]);
+	LOG(@"mark as read: %@, status = %d", subscribe_id, [response statusCode]);
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	NSMutableDictionary *requestedOperations = [sharedLDRTouchApp.userSettings requestedOperations];

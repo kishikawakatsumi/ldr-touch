@@ -42,14 +42,21 @@
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:@"http://reader.livedoor.com/api/pin/all" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
-																	 loginManager.api_key, @"ApiKey", nil]];
+	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/pin/all"]
+	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+				loginManager.api_key, @"ApiKey", nil]];
 }
 
 - (BOOL)deletePin:(NSString *)link {
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+	
 	LoginManager *loginManager = [LDRTouchAppDelegate sharedLoginManager];
-	NSURL *apiURI = [NSURL URLWithString:@"http://reader.livedoor.com/api/pin/remove"];
+	NSURL *apiURI = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/pin/remove"]];
 	NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:apiURI
 													   cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:180.0];
 	

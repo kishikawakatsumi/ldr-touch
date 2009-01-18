@@ -45,10 +45,8 @@ static NSString *starBlank = NULL;
 + (void)initialize {
 	LOG_CURRENT_METHOD;
 	dateFormatter = [[NSDateFormatter alloc] init];
-	//[dateFormatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"US"] autorelease]];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	timeFormatter = [[NSDateFormatter alloc] init];
-	//[timeFormatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"US"] autorelease]];
 	[timeFormatter setTimeStyle:NSDateFormatterMediumStyle];
 	unreadMark1 = [[UIImage imageNamed:@"unread.png"] retain];
 	unreadMark2 = [[UIImage imageNamed:@"unread2.png"] retain];
@@ -89,10 +87,12 @@ static NSString *starBlank = NULL;
 }
 
 - (IBAction)refreshData {
+	LOG_CURRENT_METHOD;
 	[self loadFeedList];	
 }
 
 - (void)refreshDataIfNeeded {
+	LOG_CURRENT_METHOD;
 	NSArray *listOfFeed = [CacheManager loadFeedList];
 	if (!listOfFeed) {
 		[self refreshData];
@@ -105,6 +105,7 @@ static NSString *starBlank = NULL;
 }
 
 - (void)loadFeedList {
+	LOG_CURRENT_METHOD;
 	[refleshButton setEnabled:NO];
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -119,10 +120,14 @@ static NSString *starBlank = NULL;
 	[conn cancel];
 	[self reset];
 	
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:@"http://reader.livedoor.com/api/subs" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
-																  @"1", @"unread", 
-																  loginManager.api_key, @"ApiKey", nil]];
+	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/subs"]
+	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+				@"1", @"unread", 
+				loginManager.api_key, @"ApiKey", nil]];
 }
 
 - (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
@@ -200,6 +205,8 @@ static NSString *starBlank = NULL;
 }
 
 - (void)loginManagerFailed:(LoginManager *)sender error:(NSError *)error {
+	[refleshButton setEnabled:YES];
+	
 	[sender setDelegate:nil];
 	
 	NSString *message = NSLocalizedString(@"LoginFailure", nil);
@@ -353,6 +360,7 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	self.feedList = sortedFeedList;
 	
 	userSettings.numberOfUnread = numberOfUnread;
+	self.title = [NSString stringWithFormat:@"%@ (%d)", NSLocalizedString(@"AppName", nil), numberOfUnread];
 	LOG(@"unread items count: %d", numberOfUnread);
 }
 
@@ -558,12 +566,23 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+	
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+	
+	self.title = [NSString stringWithFormat:@"%@ (%d)", NSLocalizedString(@"AppName", nil), userSettings.numberOfUnread];
+	
 	[self.feedListView deselectRowAtIndexPath:[self.feedListView indexPathForSelectedRow] animated:YES];
 	[self.feedListView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewDidAppear:animated];
+	[self setTitle:@"Top"];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

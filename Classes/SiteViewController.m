@@ -15,10 +15,10 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-		UIBarButtonItem *commentButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Comment.png"]
-																		  style:UIBarButtonItemStyleBordered target:self action:@selector(showInfoMenu)];
-		[[self navigationItem] setRightBarButtonItem:commentButton];
-		[commentButton release];
+//		UIBarButtonItem *commentButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Comment.png"]
+//																		  style:UIBarButtonItemStyleBordered target:self action:@selector(showInfoMenu)];
+//		[[self navigationItem] setRightBarButtonItem:commentButton];
+//		[commentButton release];
     }
     return self;
 }
@@ -41,15 +41,15 @@
 	conn = nil;
 }
 
-- (void)loadPageInfo {
-	[conn cancel];
-	[self reset];
-	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	
-	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn get:[NSString stringWithFormat:@"http://b.hatena.ne.jp/entry/json/%@", [[webView.request mainDocumentURL] absoluteString]] parameters:nil];
-}
+//- (void)loadPageInfo {
+//	[conn cancel];
+//	[self reset];
+//	
+//	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+//	
+//	conn = [[HttpClient alloc] initWithDelegate:self];
+//	[conn get:[NSString stringWithFormat:@"http://b.hatena.ne.jp/entry/json/%@", [[webView.request mainDocumentURL] absoluteString]] parameters:nil];
+//}
 
 - (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
 	NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -147,7 +147,7 @@
 	NSString *aURL = [[[aWebView request] mainDocumentURL] absoluteString];
 	self.lastPageURL = aURL;
 	
-	[self loadPageInfo];
+//	[self loadPageInfo];
 	
 	LOG_CURRENT_METHOD;
 }
@@ -170,12 +170,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	if (isInfoMenuPresent) {
-		isInfoMenuPresent = NO;
-		return;
-	}
+//	if (isInfoMenuPresent) {
+//		isInfoMenuPresent = NO;
+//		return;
+//	}
     [super viewWillAppear:animated];
-	[[[self navigationItem] rightBarButtonItem] setEnabled:NO];
+//	[[[self navigationItem] rightBarButtonItem] setEnabled:NO];
 	
 	backButton.enabled = (webView.canGoBack) ? YES : NO;
     forwardButton.enabled = (webView.canGoForward) ? YES : NO;
@@ -191,18 +191,18 @@
 		}
 		[webView loadRequest:[NSURLRequest requestWithURL:url]];
 	} else {
-		[self loadPageInfo];
+//		[self loadPageInfo];
 	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	if (isInfoMenuPresent) {
-		return;
-	}
+//	if (isInfoMenuPresent) {
+//		return;
+//	}
 	[super viewWillDisappear:animated];
 	[webView stopLoading];
-	[pageInfo release];
-	pageInfo = nil;
+//	[pageInfo release];
+//	pageInfo = nil;
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 

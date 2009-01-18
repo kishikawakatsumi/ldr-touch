@@ -1,5 +1,6 @@
 #import "LoginManager.h"
 #import "LDRTouchAppDelegate.h"
+#import "Constants.h"
 #import "Debug.h"
 
 @interface NSObject (LoginManagerDelegate)
@@ -68,7 +69,7 @@
 	
 	NSHTTPCookieStorage *cookieStotage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
 	[cookieStotage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways]; 
-	NSArray *cookies = [cookieStotage cookiesForURL:[NSURL URLWithString:@"http://reader.livedoor.com"]];
+	NSArray *cookies = [cookieStotage cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", @"http://", userSettings.serviceURI]]];
 	
 	for (NSHTTPCookie *cookie in cookies) {
 		[cookieStotage deleteCookie:cookie];
@@ -77,16 +78,26 @@
 	[self reset];
 	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:@"http://member.livedoor.com/login/" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
-																@"http://reader.livedoor.com/reader/", @".next",
-																@"reader", @".sv",
-																userName, @"livedoor_id",
-																password, @"password", nil]];
+	if ([userSettings.serviceURI rangeOfString:SERVICE_URI_LIVEDOOR].location == NSNotFound) {
+		[conn post:@"http://fastladder.com/login" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+															  @"Sign+in", @"commit",
+															  userName, @"username",
+															  password, @"password", nil]];
+	} else {
+		[conn post:@"http://member.livedoor.com/login/" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+																	@"http://reader.livedoor.com/reader/", @".next",
+																	@"reader", @".sv",
+																	userName, @"livedoor_id",
+																	password, @"password", nil]];
+	}
 }
 
 - (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
+	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
+	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
+	
 	NSHTTPCookieStorage *cookieStotage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-	NSArray *cookies = [cookieStotage cookiesForURL:[NSURL URLWithString:@"http://reader.livedoor.com"]];
+	NSArray *cookies = [cookieStotage cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", @"http://", userSettings.serviceURI]]];
 	
 	for (NSHTTPCookie *cookie in cookies) {
 		if ([cookie.name isEqualToString:@"reader_sid"]) {

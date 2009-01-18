@@ -1,4 +1,5 @@
 #import "UserSettings.h"
+#import "Constants.h"
 #import "Debug.h"
 
 @implementation UserSettings
@@ -9,15 +10,18 @@
 @synthesize markAsReadAuto;
 @synthesize sortOrder;
 @synthesize viewMode;
-@synthesize listOfRead;
-@synthesize unfinishedOperations;
-@synthesize requestedOperations;
-@synthesize numberOfUnread;
 @synthesize showBadgeFlag;
 @synthesize useMobileProxy;
+@synthesize shouldAutoRotation;
+@synthesize serviceURI;
+
+@synthesize listOfRead;
+@synthesize numberOfUnread;
+@synthesize unfinishedOperations;
+@synthesize requestedOperations;
+
 @synthesize lastModified;
 @synthesize pinList;
-@synthesize shouldAutoRotation;
 
 - (id)init {
 	if (self = [super init]) {
@@ -27,15 +31,18 @@
 		markAsReadAuto = NO;
 		sortOrder = UserSettingsSortOrderDate;
 		viewMode = UserSettingsViewModeFlat;
-		listOfRead = [[NSMutableDictionary alloc] init];
-		unfinishedOperations = [[NSMutableDictionary alloc] init];
-		requestedOperations = [[NSMutableDictionary alloc] init];
-		numberOfUnread = 0;
 		showBadgeFlag = NO;
 		useMobileProxy = NO;
+		shouldAutoRotation = YES;
+		serviceURI = SERVICE_URI_DEFAULT;
+		
+		listOfRead = [[NSMutableDictionary alloc] init];
+		numberOfUnread = 0;
+		unfinishedOperations = [[NSMutableDictionary alloc] init];
+		requestedOperations = [[NSMutableDictionary alloc] init];
+		
 		lastModified = nil;
 		pinList = [[NSMutableArray alloc] init];
-		shouldAutoRotation = YES;
 	}
 	return self;
 }
@@ -47,15 +54,19 @@
 	markAsReadAuto = [coder decodeBoolForKey:@"markAsReadAuto"];
 	sortOrder = [coder decodeIntForKey:@"sortOrder"];
 	viewMode = [coder decodeIntForKey:@"viewMode"];
-	listOfRead = [[coder decodeObjectForKey:@"listOfRead"] retain];
-	unfinishedOperations = [[coder decodeObjectForKey:@"unfinishedOperations"] retain];
-	requestedOperations = [[NSMutableDictionary alloc] init];
-	numberOfUnread = [coder decodeIntForKey:@"numberOfUnread"];
 	showBadgeFlag = [coder decodeBoolForKey:@"showBadgeFlag"];
 	useMobileProxy = [coder decodeBoolForKey:@"useMobileProxy"];
+	shouldAutoRotation = [coder decodeBoolForKey:@"shouldAutoRotation"];
+	serviceURI = [[coder decodeObjectForKey:@"serviceURI"] retain];
+	
+	listOfRead = [[coder decodeObjectForKey:@"listOfRead"] retain];
+	numberOfUnread = [coder decodeIntForKey:@"numberOfUnread"];
+	unfinishedOperations = [[coder decodeObjectForKey:@"unfinishedOperations"] retain];
+	requestedOperations = [[NSMutableDictionary alloc] init];
+	
 	lastModified = [[coder decodeObjectForKey:@"lastModified"] retain];
 	pinList = [[coder decodeObjectForKey:@"pinList"] retain];
-	shouldAutoRotation = [coder decodeBoolForKey:@"shouldAutoRotation"];
+	
 	return self;
 }
 
@@ -66,14 +77,17 @@
 	[encoder encodeBool:markAsReadAuto forKey:@"markAsReadAuto"];
 	[encoder encodeInt:sortOrder forKey:@"sortOrder"];
 	[encoder encodeInt:viewMode forKey:@"viewMode"];
-	[encoder encodeObject:listOfRead forKey:@"listOfRead"];
-	[encoder encodeObject:unfinishedOperations forKey:@"unfinishedOperations"];
-	[encoder encodeInt:numberOfUnread forKey:@"numberOfUnread"];
 	[encoder encodeBool:showBadgeFlag forKey:@"showBadgeFlag"];
 	[encoder encodeBool:useMobileProxy forKey:@"useMobileProxy"];
+	[encoder encodeBool:shouldAutoRotation forKey:@"shouldAutoRotation"];
+	[encoder encodeObject:serviceURI forKey:@"serviceURI"];
+	
+	[encoder encodeObject:listOfRead forKey:@"listOfRead"];
+	[encoder encodeInt:numberOfUnread forKey:@"numberOfUnread"];
+	[encoder encodeObject:unfinishedOperations forKey:@"unfinishedOperations"];
+	
 	[encoder encodeObject:lastModified forKey:@"lastModified"];
 	[encoder encodeObject:pinList forKey:@"pinList"];
-	[encoder encodeBool:shouldAutoRotation forKey:@"shouldAutoRotation"];
 }
 
 - (void)dealloc {
@@ -83,6 +97,7 @@
 	[requestedOperations release];
 	[unfinishedOperations release];
 	[listOfRead release];
+	[serviceURI release];
 	[userName release];
 	[password release];
 	[super dealloc];
