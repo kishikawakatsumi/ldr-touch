@@ -282,10 +282,6 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//	[self.navigationItem setLeftBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:@"Top" 
-//																				style:UIBarButtonItemStyleBordered
-//																			   target:self 
-//																			   action:@selector(backToTop)] autorelease] animated:NO];
 	[feedView.tableView deselectRowAtIndexPath:[feedView.tableView indexPathForSelectedRow] animated:YES];
 	[feedView.tableView reloadData];
 	[self enableButtons];

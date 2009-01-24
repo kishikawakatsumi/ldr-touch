@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-#define CURRENT_VERSION 130
+#define CURRENT_VERSION 124
 
 typedef enum {
     UserSettingsSortOrderDate,

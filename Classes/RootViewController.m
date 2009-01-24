@@ -397,11 +397,11 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	if (loginManager.remoteHostStatus == NotReachable) {
 		[refleshButton setEnabled:NO];
 		[pinListButton setEnabled:NO];
-		[toolBar setBarStyle:UIBarStyleBlackOpaque];
+//		[toolBar setBarStyle:UIBarStyleBlackOpaque];
 	} else {
 		[refleshButton setEnabled:YES];
 		[pinListButton setEnabled:YES];
-		[toolBar setBarStyle:UIBarStyleDefault];
+//		[toolBar setBarStyle:UIBarStyleDefault];
 	}
 }
 
@@ -520,6 +520,8 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 		return;
 	}
 	
+	[self setTitle:@"Top"];
+	
 	FeedViewController *controller = [[FeedViewController alloc] init];
 	NSDictionary *feed = [[organizedFeedList objectForKey:[sectionHeaders objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
 	controller.feedList = feedList;
@@ -582,7 +584,6 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidAppear:animated];
-	[self setTitle:@"Top"];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

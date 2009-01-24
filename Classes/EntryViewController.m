@@ -113,7 +113,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 	NSMutableDictionary *listOfReadEachEntry = [listOfRead objectForKey:key];
 	NSInteger unreadCount = [items count] - [listOfReadEachEntry count];
 	
-	[self setTitle:[NSString stringWithFormat:@"%d / %d(%d)", [items indexOfObject:currentItem] + 1, [items count], unreadCount]];
+	[self setTitle:[NSString stringWithFormat:@"%d / %d (%d)", [items indexOfObject:currentItem] + 1, [items count], unreadCount]];
 }
 
 - (void)goWebSite:(id)sender {
@@ -291,9 +291,9 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 	LOG_CURRENT_METHOD;
 	LoginManager *loginManager = [LDRTouchAppDelegate sharedLoginManager];
 	if (loginManager.remoteHostStatus == NotReachable) {
-		[[self.navigationItem rightBarButtonItem] setEnabled:NO];
+		[[self.entryView siteButton] setEnabled:NO];
 	} else {
-		[[self.navigationItem rightBarButtonItem] setEnabled:YES];
+		[[self.entryView siteButton] setEnabled:YES];
 	}
 }
 
@@ -376,6 +376,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	[self enableButtons];
+	[self reachabilityChanged:nil];
 	[self loadEntry];
 }
 
