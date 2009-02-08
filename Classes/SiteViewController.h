@@ -9,10 +9,6 @@
 	NSString *pageURL;
 	NSString *lastPageURL;
 	BOOL loadFinishedSuccesefully;
-	
-	HttpClient *conn;
-	NSDictionary *pageInfo;
-	BOOL isInfoMenuPresent;
 }
 
 @property (nonatomic, retain, readonly) UIWebView *webView;

@@ -164,8 +164,6 @@ static LoginManager *loginManager = NULL;
 	sharedSiteViewController = [[SiteViewController alloc] initWithNibName:@"SiteView" bundle:nil];
 	sharedSiteViewController.view.autoresizesSubviews = YES;
 	sharedSiteViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//	[sharedSiteViewController.webView _setCheckeredPatternEnabled:YES];
-//	[sharedSiteViewController.webView _setTileDrawingEnabled:YES];
 	
 	[window addSubview:[navigationController view]];
 	[window makeKeyAndVisible];

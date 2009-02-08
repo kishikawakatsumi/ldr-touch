@@ -11,6 +11,8 @@
 	NSDateFormatter *formatter;
 	
 	FeedViewController *feedViewController;
+	
+	BOOL backedFromSiteView;
 }
 
 @property (nonatomic, retain) EntryView *entryView;

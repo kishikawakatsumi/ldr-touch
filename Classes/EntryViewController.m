@@ -47,7 +47,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        ;
+        backedFromSiteView = NO;
     }
     return self;
 }
@@ -120,6 +120,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 	SiteViewController *controller = [[LDRTouchAppDelegate sharedLDRTouchApp] sharedSiteViewController];
 	controller.pageURL = [NSString decodeXMLCharactersIn:[currentItem objectForKey:@"link"]];
 	controller.title = [NSString decodeXMLCharactersIn:[currentItem objectForKey:@"title"]];
+	backedFromSiteView = YES;
 	[[self navigationController] pushViewController:controller animated:YES];
 }
 
@@ -377,7 +378,11 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
     [super viewWillAppear:animated];
 	[self enableButtons];
 	[self reachabilityChanged:nil];
-	[self loadEntry];
+	if (!backedFromSiteView) {
+		[self loadEntry];
+	} else {
+		backedFromSiteView = NO;
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {
