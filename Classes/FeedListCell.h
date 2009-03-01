@@ -1,15 +1,19 @@
 #import <UIKit/UIKit.h>
 
 @interface FeedListCell : UITableViewCell {
-	UILabel *titleLabel;
-	UILabel *unreadCountLabel;
-	UILabel *readCountLabel;
-	UIImageView *unreadMark;
+	NSString *titleText;
+	NSString *unreadCountText;
+	NSString *readCountText;
+	UIImage *unreadMarkImage;
+	BOOL cached;
 }
 
-@property (nonatomic, retain) UILabel *titleLabel;
-@property (nonatomic, retain) UILabel *unreadCountLabel;
-@property (nonatomic, retain) UILabel *readCountLabel;
-@property (nonatomic, retain) UIImageView *unreadMark;
+@property (nonatomic, retain) NSString *titleText;
+@property (nonatomic, retain) NSString *unreadCountText;
+@property (nonatomic, retain) NSString *readCountText;
+@property (nonatomic, retain) UIImage *unreadMarkImage;
+@property (nonatomic) BOOL cached;
+
+- (void)drawSelectedBackgroundRect:(CGRect)rect;
 
 @end

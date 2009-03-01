@@ -2,11 +2,13 @@
 
 
 @interface FeedCell : UITableViewCell {
-	UILabel *titleLabel;
-	UIImageView *unreadMark;
+	NSString *titleText;
+	UIImage *unreadMarkImage;
 }
 
-@property (nonatomic, retain) UILabel *titleLabel;
-@property (nonatomic, retain) UIImageView *unreadMark;
+@property (nonatomic, retain) NSString *titleText;
+@property (nonatomic, retain) UIImage *unreadMarkImage;
+
+- (void)drawSelectedBackgroundRect:(CGRect)rect;
 
 @end

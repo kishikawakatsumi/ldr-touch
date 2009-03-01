@@ -1,8 +1,9 @@
 #import <UIKit/UIKit.h>
+#import "UICWebView.h"
 #import "HttpClient.h"
 
 @interface SiteViewController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate> {
-	IBOutlet UIWebView *webView;
+	IBOutlet UICWebView *webView;
 	IBOutlet UIBarButtonItem *backButton;
 	IBOutlet UIBarButtonItem *forwardButton;
 	
@@ -11,7 +12,7 @@
 	BOOL loadFinishedSuccesefully;
 }
 
-@property (nonatomic, retain, readonly) UIWebView *webView;
+@property (nonatomic, retain, readonly) UICWebView *webView;
 @property (nonatomic, retain) UIBarButtonItem *backButton;
 @property (nonatomic, retain) UIBarButtonItem *forwardButton;
 @property (nonatomic, retain) NSString *pageURL;

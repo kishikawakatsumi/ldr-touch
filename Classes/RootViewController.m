@@ -474,12 +474,12 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	
-	[cell.titleLabel setText:[NSString decodeXMLCharactersIn:[feed objectForKey:@"title"]]];
+	[cell setTitleText:[NSString decodeXMLCharactersIn:[feed objectForKey:@"title"]]];
 	
 	if ([CacheManager containsEntriesOf:subscribe_id]) {
-		[cell.titleLabel setTextColor:[UIColor blackColor]];
+		[cell setCached:YES];
 	} else {
-		[cell.titleLabel setTextColor:[UIColor grayColor]];
+		[cell setCached:NO];
 	}
 	
 	NSNumber *unread_count = [feed objectForKey:@"unread_count"];
@@ -488,18 +488,18 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 		NSString *key = [NSString stringWithFormat:@"enties_%@", subscribe_id];
 		NSDictionary *listOfReadEachEntry = [listOfRead objectForKey:key];
 		if (listOfReadEachEntry) {
-			[cell.unreadMark setImage:unreadMark2];
-			[cell.readCountLabel setText:[NSString stringWithFormat:@"%d", [unread_count intValue] - [listOfReadEachEntry count]]];
-			[cell.unreadCountLabel setText:[NSString stringWithFormat:@"%@", unread_count]];
+			[cell setUnreadMarkImage:unreadMark2];
+			[cell setReadCountText:[NSString stringWithFormat:@"%d", [unread_count intValue] - [listOfReadEachEntry count]]];
+			[cell setUnreadCountText:[NSString stringWithFormat:@"%@", unread_count]];
 		} else {
-			[cell.unreadMark setImage:unreadMark1];
-			[cell.readCountLabel setText:nil];
-			[cell.unreadCountLabel setText:[NSString stringWithFormat:@"%@", unread_count]];
+			[cell setUnreadMarkImage:unreadMark1];
+			[cell setReadCountText:nil];
+			[cell setUnreadCountText:[NSString stringWithFormat:@"%@", unread_count]];
 		}
 	} else {
-		[cell.unreadMark setImage:nil];
-		[cell.readCountLabel setText:nil];
-		[cell.unreadCountLabel setText:nil];
+		[cell setUnreadMarkImage:nil];
+		[cell setReadCountText:nil];
+		[cell setUnreadCountText:nil];
 	}
     
 	if ([self sectionIndexTitlesForTableView:tableView] ) {
@@ -507,7 +507,6 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	} else {
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	}
-
 	
     return cell;
 }

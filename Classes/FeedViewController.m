@@ -217,7 +217,7 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	
 	NSDictionary *item = [items objectAtIndex:indexPath.row];
 	NSString *title = [NSString decodeXMLCharactersIn:[item objectForKey:@"title"]];
-	[cell.titleLabel setText:title];
+	[cell setTitleText:title];
 	
 	NSString *subscribe_id = [NSString stringWithFormat:@"%@", [feed objectForKey:@"subscribe_id"]];
 	NSString *entry_id = [NSString stringWithFormat:@"%@", [item objectForKey:@"id"]];
@@ -228,9 +228,9 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	NSMutableDictionary *listOfRead = [sharedLDRTouchApp.userSettings listOfRead];
 	NSMutableDictionary *listOfReadEachEntry = [listOfRead objectForKey:key];
 	if (![listOfRead objectForKey:subscribe_id] && ![listOfReadEachEntry objectForKey:entry_id]) {
-		[cell.unreadMark setImage:unreadMark];
+		[cell setUnreadMarkImage:unreadMark];
 	} else {
-		[cell.unreadMark setImage:nil];
+		[cell setUnreadMarkImage:nil];
 	}
 	
 	return cell;

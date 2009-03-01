@@ -1,5 +1,4 @@
 #import "SiteViewController.h"
-#import "InformationSheetController.h"
 #import "HUDMessageView.h"
 #import "LDRTouchAppDelegate.h"
 #import "JSON.h"
@@ -13,20 +12,6 @@
 @synthesize forwardButton;
 @synthesize pageURL;
 @synthesize lastPageURL;
-
-static NSObject *webViewcreateWebViewWithRequestIMP(id self, SEL _cmd, NSObject* sender, NSObject* request) {
-	return [sender retain];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-	LOG_CURRENT_METHOD;
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-		Class UIWebViewWebViewDelegate = objc_getClass("UIWebViewWebViewDelegate");
-		class_addMethod(UIWebViewWebViewDelegate, @selector(webView:createWebViewWithRequest:), 
-						(IMP)webViewcreateWebViewWithRequestIMP, "@@:@@");
-    }
-    return self;
-}
 
 - (void)dealloc {
 	LOG_CURRENT_METHOD;

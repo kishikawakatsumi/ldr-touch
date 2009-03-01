@@ -18,7 +18,7 @@
 }
 
 - (id) initWithMessage:(NSString*)message {
-	UIImage *base =  [UIImage imageNamed:@"dialogue.png"];
+	UIImage *base =  [UIImage imageNamed:@"hud.png"];
 	UIImage *newImage = [base stretchableImageWithLeftCapWidth:11.0 topCapHeight:11.0];
 	
 	if( self = [super initWithImage:newImage] ) {

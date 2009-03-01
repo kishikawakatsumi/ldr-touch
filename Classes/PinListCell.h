@@ -1,11 +1,13 @@
 #import <UIKit/UIKit.h>
 
 @interface PinListCell : UITableViewCell {
-	UILabel *titleLabel;
-	UILabel *linkLabel;
+	NSString *titleText;
+	NSString *linkText;
 }
 
-@property (nonatomic, retain) UILabel *titleLabel;
-@property (nonatomic, retain) UILabel *linkLabel;
+@property (nonatomic, retain) NSString *titleText;
+@property (nonatomic, retain) NSString *linkText;
+
+- (void)drawSelectedBackgroundRect:(CGRect)rect;
 
 @end
