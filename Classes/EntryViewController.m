@@ -326,6 +326,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 		[self hilightedClipedPage];
 	}
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout = 'none';"];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -336,6 +337,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 		[self hilightedClipedPage];
 	}
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout = 'none';"];
 }
 
 #pragma mark <UIViewController> Methods

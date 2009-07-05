@@ -16,6 +16,7 @@
 		141324120F23CA5900E82250 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1413240D0F23CA5900E82250 /* NSObject+SBJSON.m */; };
 		141324130F23CA5900E82250 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1413240F0F23CA5900E82250 /* NSString+SBJSON.m */; };
 		141324140F23CA5900E82250 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 141324110F23CA5900E82250 /* SBJSON.m */; };
+		146E8D5E10015A0000C14C28 /* TableCellDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 146E8D5D10015A0000C14C28 /* TableCellDrawing.m */; };
 		14A29FA10F5B1B720077F0BC /* FeedListBackgroundCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A29FA00F5B1B720077F0BC /* FeedListBackgroundCell.m */; };
 		14A29FC90F5B1E950077F0BC /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A29FC80F5B1E950077F0BC /* Colors.m */; };
 		14A29FCF0F5B209B0077F0BC /* FeedBackgroundCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A29FCE0F5B209B0077F0BC /* FeedBackgroundCell.m */; };
@@ -26,6 +27,7 @@
 		14A2A0620F5B25AA0077F0BC /* NavForwardSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A2A05E0F5B25AA0077F0BC /* NavForwardSmall.png */; };
 		14A2A0880F5B29460077F0BC /* hud.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A2A0870F5B29460077F0BC /* hud.png */; };
 		14A2A09E0F5B29C30077F0BC /* UICWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A2A09D0F5B29C30077F0BC /* UICWebView.m */; };
+		14A2A55C0F5C60430077F0BC /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14A2A55B0F5C60430077F0BC /* Entitlements.plist */; };
 		14B2FB7B0EFD2F7200AD611D /* reflesh.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B2FB7A0EFD2F7200AD611D /* reflesh.png */; };
 		14BAC19F0EC079410037E340 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC19E0EC079410037E340 /* LoginManager.m */; };
 		14BAC1B60EC079610037E340 /* HttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC1B30EC079610037E340 /* HttpClient.m */; };
@@ -92,6 +94,8 @@
 		1413240F0F23CA5900E82250 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
 		141324100F23CA5900E82250 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
 		141324110F23CA5900E82250 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		146E8D5C10015A0000C14C28 /* TableCellDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCellDrawing.h; sourceTree = "<group>"; };
+		146E8D5D10015A0000C14C28 /* TableCellDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCellDrawing.m; sourceTree = "<group>"; };
 		14A29F9F0F5B1B720077F0BC /* FeedListBackgroundCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedListBackgroundCell.h; sourceTree = "<group>"; };
 		14A29FA00F5B1B720077F0BC /* FeedListBackgroundCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedListBackgroundCell.m; sourceTree = "<group>"; };
 		14A29FC70F5B1E950077F0BC /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 		14A2A0870F5B29460077F0BC /* hud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hud.png; sourceTree = "<group>"; };
 		14A2A09C0F5B29C30077F0BC /* UICWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICWebView.h; sourceTree = "<group>"; };
 		14A2A09D0F5B29C30077F0BC /* UICWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICWebView.m; sourceTree = "<group>"; };
+		14A2A55B0F5C60430077F0BC /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		14B2FB7A0EFD2F7200AD611D /* reflesh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reflesh.png; sourceTree = "<group>"; };
 		14BAC19D0EC079410037E340 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		14BAC19E0EC079410037E340 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
@@ -317,6 +322,8 @@
 				14BAC3B00EC095220037E340 /* NSString+XMLExtensions.m */,
 				14BAC1E70EC07BD20037E340 /* Reachability.h */,
 				14BAC1E80EC07BD20037E340 /* Reachability.m */,
+				146E8D5C10015A0000C14C28 /* TableCellDrawing.h */,
+				146E8D5D10015A0000C14C28 /* TableCellDrawing.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -399,6 +406,7 @@
 				1409D2140ECF6184004866AF /* InformationSheet.xib */,
 				14BAC5C60EC0ACF40037E340 /* UserSettingSheet.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				14A2A55B0F5C60430077F0BC /* Entitlements.plist */,
 				14BAC41D0EC098F80037E340 /* InfoPlist.strings */,
 				14BAC3EF0EC0973B0037E340 /* Localizable.strings */,
 			);
@@ -495,6 +503,7 @@
 				14A2A0610F5B25AA0077F0BC /* NavForward.png in Resources */,
 				14A2A0620F5B25AA0077F0BC /* NavForwardSmall.png in Resources */,
 				14A2A0880F5B29460077F0BC /* hud.png in Resources */,
+				14A2A55C0F5C60430077F0BC /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +546,7 @@
 				14A29FCF0F5B209B0077F0BC /* FeedBackgroundCell.m in Sources */,
 				14A29FDD0F5B24710077F0BC /* PinListBackgroundCell.m in Sources */,
 				14A2A09E0F5B29C30077F0BC /* UICWebView.m in Sources */,
+				146E8D5E10015A0000C14C28 /* TableCellDrawing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +598,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Katsumi Kishikawa";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "";
@@ -608,6 +619,35 @@
 				PRODUCT_NAME = LDRTouch;
 			};
 			name = Distribution;
+		};
+		14A2A5690F5C607E0077F0BC /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Katsumi Kishikawa";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FCF529B2-9868-48BC-9128-396048CE4F8B";
+				SDKROOT = iphoneos2.2;
+			};
+			name = "Ad Hoc";
+		};
+		14A2A56A0F5C607E0077F0BC /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LDRTouch_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = LDRTouch;
+			};
+			name = "Ad Hoc";
 		};
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -647,7 +687,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1BB20DE6-C549-4B87-AD35-32DC601105CC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F064D1B5-1E56-48D6-B621-293C692A49CE";
 				SDKROOT = iphoneos2.2;
 			};
 			name = Debug;
@@ -658,11 +698,12 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Katsumi Kishikawa";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1BB20DE6-C549-4B87-AD35-32DC601105CC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F064D1B5-1E56-48D6-B621-293C692A49CE";
 				SDKROOT = iphoneos2.2;
 			};
 			name = Release;
@@ -676,6 +717,7 @@
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
 				1409CD850ECB2950004866AF /* Distribution */,
+				14A2A56A0F5C607E0077F0BC /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -686,6 +728,7 @@
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
 				1409CD840ECB2950004866AF /* Distribution */,
+				14A2A5690F5C607E0077F0BC /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

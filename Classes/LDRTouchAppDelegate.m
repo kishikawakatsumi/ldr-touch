@@ -150,6 +150,7 @@ static LoginManager *loginManager = NULL;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	LOG_CURRENT_METHOD;
+	//[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	
 	[self loadUserSettings];
 	

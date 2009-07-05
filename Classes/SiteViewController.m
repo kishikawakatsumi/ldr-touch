@@ -68,8 +68,8 @@
 - (void)webViewDidStartLoad:(UIWebView *)aWebView {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	
-	backButton.enabled = (webView.canGoBack) ? YES : NO;
-    forwardButton.enabled = (webView.canGoForward) ? YES : NO;
+	backButton.enabled = webView.canGoBack;
+    forwardButton.enabled = webView.canGoForward;
 	
 	LOG_CURRENT_METHOD;
 }
@@ -78,8 +78,8 @@
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	loadFinishedSuccesefully = YES;
 	
-	backButton.enabled = (webView.canGoBack) ? YES : NO;
-    forwardButton.enabled = (webView.canGoForward) ? YES : NO;
+	backButton.enabled = webView.canGoBack;
+    forwardButton.enabled = webView.canGoForward;
 	
 	self.title = [aWebView stringByEvaluatingJavaScriptFromString:@"document.title"];
 	NSString *aURL = [[[aWebView request] mainDocumentURL] absoluteString];
@@ -92,8 +92,8 @@
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	loadFinishedSuccesefully = NO;
 	
-	backButton.enabled = (webView.canGoBack) ? YES : NO;
-    forwardButton.enabled = (webView.canGoForward) ? YES : NO;
+	backButton.enabled = webView.canGoBack;
+    forwardButton.enabled = webView.canGoForward;
 	
 	LOG_CURRENT_METHOD;
 }
@@ -108,8 +108,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	
-	backButton.enabled = (webView.canGoBack) ? YES : NO;
-    forwardButton.enabled = (webView.canGoForward) ? YES : NO;
+	backButton.enabled = webView.canGoBack;
+    forwardButton.enabled = webView.canGoForward;
 	
 	if (![pageURL isEqualToString:lastPageURL] || !loadFinishedSuccesefully) {
 		LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];

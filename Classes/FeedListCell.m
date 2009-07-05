@@ -1,5 +1,6 @@
 #import "FeedListCell.h"
 #import "FeedListBackgroundCell.h"
+#import "TableCellDrawing.h"
 #import "Colors.h"
 #import "Debug.h"
 
@@ -49,60 +50,6 @@ static UIColor *redColor = NULL;
 	}
 }
 
-static void drawRoundedRectPath(CGRect rect, BOOL topRound, BOOL bottomRound, BOOL topTriangle) {
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	const CGFloat roundSize = 8.0;
-	
-	CGFloat x = rect.origin.x - 0.5;
-	CGFloat y = rect.origin.y - 0.5;
-	CGFloat w = rect.size.width;
-	CGFloat h = rect.size.height;
-	
-	CGContextBeginPath (context);
-	
-	CGContextMoveToPoint(context,   x + w/2, y + 0);
-	if (topRound) {
-		CGContextAddArcToPoint(context, x + w, y + 0, x + w,   y + h/2, roundSize);
-	} else {
-		CGContextAddLineToPoint(context, x + w, y + 0);
-	}
-	if (bottomRound) {
-		CGContextAddArcToPoint(context, x + w, y + h, x + w/2, y + h, roundSize);
-		CGContextAddArcToPoint(context, x + 0, y + h, x + 0,   y + h/2, roundSize);
-	} else {
-		CGContextAddLineToPoint(context, x + w, y + h);
-		CGContextAddLineToPoint(context, x + 0, y + h);
-	}
-	if (topRound) {
-		CGContextAddArcToPoint(context, x + 0, y + 0, x + w/2, y + 0, roundSize);
-	} else {
-		CGContextAddLineToPoint(context, x + 0, y + 0);
-	}
-	
-	if (topTriangle) {
-		CGContextAddLineToPoint(context, x + 27, y);
-		CGContextAddLineToPoint(context, x + 32, y - 4);
-		CGContextAddLineToPoint(context, x + 37, y);
-	}
-	
-	CGContextClosePath(context);
-}
-
-static void drawRoundedRectBackgroundGradient(CGRect rect, CGGradientRef gradient, BOOL topRound, BOOL bottomRound, BOOL topTriangle)  {
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	
-	CGContextSetRGBStrokeColor(context, 0.5f, 0.5f, 0.5f, 1.0f);
-	CGContextSetLineWidth(context, 0.5f);
-	
-	drawRoundedRectPath(rect, topRound, bottomRound, topTriangle);
-	CGContextClip(context);
-	CGContextDrawLinearGradient(context, gradient, CGPointMake(0,0), CGPointMake(0,rect.size.height), 
-								kCGGradientDrawsBeforeStartLocation|kCGGradientDrawsAfterEndLocation);
-	
-	drawRoundedRectPath(rect, topRound, bottomRound, topTriangle);
-	CGContextStrokePath(context);
-}
-
 + (void)initialize {
 	whiteColor = [Colors whiteColor];
 	blackColor = [Colors blackColor];
@@ -123,6 +70,8 @@ static void drawRoundedRectBackgroundGradient(CGRect rect, CGGradientRef gradien
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+	[self setNeedsDisplay];
+	[self.selectedBackgroundView setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -141,18 +90,9 @@ static void drawRoundedRectBackgroundGradient(CGRect rect, CGGradientRef gradien
 }
 
 - (void)drawSelectedBackgroundRect:(CGRect)rect {
-	CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
-	CGFloat colors[] =
-	{
-		0.3f, 0.3f, 1.0f, 1.f,
-		0.2f, 0.2f, 0.7f, 1.f,
-	};
-	CGGradientRef gradientForSelected = CGGradientCreateWithColorComponents(rgb, colors, NULL, sizeof(colors)/(sizeof(colors[0])*4));
-	CGColorSpaceRelease(rgb);
-	
+	CGGradientRef gradientForSelected = createTwoColorsGradient(5, 140, 245, 1, 93, 230);
 	drawRoundedRectBackgroundGradient(rect, gradientForSelected, NO, NO, NO);
 	CGGradientRelease(gradientForSelected);
-	
 	[whiteColor set];
 	[readCountText drawInRect:CGRectMake(265.0f, 5.0f, 30.0f, 21.0f) withFont:[UIFont boldSystemFontOfSize:14.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentRight];
 	[unreadCountText drawInRect:CGRectMake(265.0f, 23.0f, 30.0f, 21.0f) withFont:[UIFont boldSystemFontOfSize:14.0] lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentRight];
