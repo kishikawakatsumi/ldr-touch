@@ -1,5 +1,4 @@
 #import "EntryView.h"
-#import "Debug.h"
 
 @implementation EntryView
 

@@ -4,14 +4,10 @@
 
 @interface UserSettingSheetController : UIViewController 
 <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIActionSheetDelegate> {
-	IBOutlet UITableView *userSettingSheet;
+	UITableView *userSettingSheet;
 	UserSettingsSortOrder sortOrder;
 	UserSettingsViewMode viewMode;
 	NSMutableDictionary *cells;
 }
-
-@property (nonatomic, retain) UITableView *userSettingSheet;
-
-- (IBAction)hideView:(id)sender;
 	
 @end

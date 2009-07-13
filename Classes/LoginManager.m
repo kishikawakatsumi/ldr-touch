@@ -1,7 +1,6 @@
 #import "LoginManager.h"
 #import "LDRTouchAppDelegate.h"
 #import "Constants.h"
-#import "Debug.h"
 
 @interface NSObject (LoginManagerDelegate)
 - (void)loginManagerSucceeded:(LoginManager *)sender apiKey:(NSString *)apiKey;

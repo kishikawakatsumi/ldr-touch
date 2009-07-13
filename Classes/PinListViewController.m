@@ -4,11 +4,9 @@
 #import "SiteViewController.h"
 #import "NSString+XMLExtensions.h"
 #import "JSON.h";
-#import "Debug.h"
 
 @implementation PinListViewController
 
-@synthesize pinListView;
 @synthesize pinList;
 
 - (void)dealloc {
@@ -25,7 +23,7 @@
 	conn = nil;
 }
 
-- (IBAction)hidePinList {
+- (void)hidePinList:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -92,7 +90,7 @@
 	}
 	
 	self.pinList = listOfPin;
-	[self.pinListView reloadData];
+	[pinListView reloadData];
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
@@ -160,6 +158,25 @@
 }
 
 #pragma mark <UIViewController> Methods
+
+- (void)loadView {
+	[super loadView];
+	UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+	self.view = rootView;
+	[rootView release];
+	
+	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+	UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:NSLocalizedString(@"Pinned Items List", nil)];
+	[navItem setRightBarButtonItem:[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(hidePinList:)] autorelease]];
+	[navBar setItems:[NSArray arrayWithObject:navItem]];
+	[self.view addSubview:navBar];
+	[navBar release];
+	
+	pinListView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 416.0f)];
+	pinListView.delegate = self;
+	pinListView.dataSource = self;
+	[self.view addSubview:pinListView];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

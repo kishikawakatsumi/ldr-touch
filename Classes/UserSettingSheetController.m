@@ -4,11 +4,8 @@
 #import "UserSettings.h"
 #import "RootViewController.h"
 #import "Constants.h"
-#import "Debug.h"
 
 @implementation UserSettingSheetController
-
-@synthesize userSettingSheet;
 
 - (void)dealloc {
 	LOG_CURRENT_METHOD;
@@ -536,18 +533,28 @@
 
 #pragma mark <UIViewController> Methods
 
+- (void)loadView {
+	[super loadView];
+	UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+	self.view = rootView;
+	[rootView release];
+	
+	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+	UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil)];
+	[navItem setRightBarButtonItem:[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(hideView:)] autorelease]];
+	[navBar setItems:[NSArray arrayWithObject:navItem]];
+	[self.view addSubview:navBar];
+	[navBar release];
+	
+	userSettingSheet = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 416.0f) style:UITableViewStyleGrouped];
+	userSettingSheet.delegate = self;
+	userSettingSheet.dataSource = self;
+	[self.view addSubview:userSettingSheet];
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = NSLocalizedString(@"Settings", nil);
 	cells = [[NSMutableDictionary alloc] init];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -559,4 +566,3 @@
 }
 
 @end
-

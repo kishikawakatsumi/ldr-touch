@@ -2,7 +2,6 @@
 #import "PinListBackgroundCell.h"
 #import "TableCellDrawing.h"
 #import "Colors.h"
-#import "Debug.h"
 
 static UIColor *whiteColor = NULL;
 static UIColor *blackColor = NULL;

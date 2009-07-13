@@ -3,15 +3,8 @@
 
 #import "HttpClient.h"
 #import "StringHelper.h"
-#import "Debug.h"
 
 #define HTTP_CLIENT_TIMEOUT 180.0
-
-@interface NSObject (HttpClientDelegate)
-- (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data;
-- (BOOL)httpClientShouldRedirect:(HttpClient*)sender request:(NSURLRequest*)request response:(NSHTTPURLResponse*)response;
-- (void)httpClientFailed:(HttpClient*)sender error:(NSError*)error;
-@end
 
 @implementation HttpClient
 
@@ -36,7 +29,6 @@
 
 - (void)dealloc
 {
-	LOG_CURRENT_METHOD;
 	[self cancel];
 	[userAgent release];
 	[super dealloc];

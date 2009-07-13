@@ -1,5 +1,4 @@
 #import "FeedView.h"
-#import "Debug.h"
 
 @implementation FeedView
 

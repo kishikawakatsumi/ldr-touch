@@ -2,7 +2,6 @@
 #import "FeedBackgroundCell.h"
 #import "TableCellDrawing.h"
 #import "Colors.h"
-#import "Debug.h"
 
 static UIColor *whiteColor = NULL;
 static UIColor *blackColor = NULL;
@@ -54,7 +53,7 @@ static UIColor *blackColor = NULL;
 	[super drawRect:rect];
 	[unreadMarkImage drawInRect:CGRectMake(4.0f, 17.0f, 10.0f, 10.0f)];
 	[blackColor set];
-	[titleText drawInRect:CGRectMake(18.0f, 5.0f, 277.0f, 42.0f) withFont:[UIFont systemFontOfSize:14.0f] lineBreakMode:UILineBreakModeCharacterWrap alignment:UITextAlignmentLeft];
+	[titleText drawInRect:CGRectMake(18.0f, 5.0f, 277.0f, 42.0f) withFont:[UIFont systemFontOfSize:14.0f] lineBreakMode:UILineBreakModeTailTruncation alignment:UITextAlignmentLeft];
 }
 
 - (void)drawSelectedBackgroundRect:(CGRect)rect {
@@ -62,7 +61,7 @@ static UIColor *blackColor = NULL;
 	drawRoundedRectBackgroundGradient(rect, gradientForSelected, NO, NO, NO);
 	CGGradientRelease(gradientForSelected);
 	[whiteColor set];
-	[titleText drawInRect:CGRectMake(18.0f, 5.0f, 277.0f, 42.0f) withFont:[UIFont systemFontOfSize:14.0f] lineBreakMode:UILineBreakModeCharacterWrap alignment:UITextAlignmentLeft];
+	[titleText drawInRect:CGRectMake(18.0f, 5.0f, 277.0f, 42.0f) withFont:[UIFont systemFontOfSize:14.0f] lineBreakMode:UILineBreakModeTailTruncation alignment:UITextAlignmentLeft];
 }
 
 - (void)dealloc {

@@ -5,7 +5,6 @@
 #import "MarkAsReadOperation.h"
 #import "AddPinOperation.h"
 #import "NSString+XMLExtensions.h"
-#import "Debug.h"
 
 static 	NSString *css = @"*{margin:2px; padding:0;}"
 @"div.LDR-title *{text-decoration: none; font-size: 16px; color: black; word-break:break-all;}"
@@ -337,7 +336,9 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 		[self hilightedClipedPage];
 	}
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout = 'none';"];
+	if (IPHONE_OS_VERSION < 3.0) {
+		[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout = 'none';"];
+	}
 }
 
 #pragma mark <UIViewController> Methods
@@ -404,7 +405,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-	
+	/*
 	[entryView.webView stopLoading];
 	
 	BOOL isOnTop = ([self.navigationController topViewController] == self);
@@ -414,7 +415,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 		[messageView performSelector:@selector(dismiss) withObject:nil afterDelay:2.0f];
 		[messageView release];
 	}
-	
+	*/
 	LOG_CURRENT_METHOD;
 }
 

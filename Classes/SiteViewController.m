@@ -1,8 +1,7 @@
 #import "SiteViewController.h"
-#import "HUDMessageView.h"
 #import "LDRTouchAppDelegate.h"
+#import "HUDMessageView.h"
 #import "JSON.h"
-#import "Debug.h"
 #import <objc/runtime.h>
 
 @implementation SiteViewController
@@ -26,7 +25,7 @@
 
 - (IBAction)actionButtonPushed:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc]
-								  initWithTitle:NSLocalizedString(@"ReloadThisPage", nil)
+								  initWithTitle:nil
 								  delegate:self
 								  cancelButtonTitle:NSLocalizedString(@"Cancel", nil) 
 								  destructiveButtonTitle:nil
@@ -146,7 +145,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-	
+	/*
 	[webView stopLoading];
 	
 	BOOL isOnTop = ([self.navigationController topViewController] == self);
@@ -156,7 +155,7 @@
 		[messageView performSelector:@selector(dismiss) withObject:nil afterDelay:2.0f];
 		[messageView release];
 	}
-	
+	*/
 	LOG_CURRENT_METHOD;
 }
 

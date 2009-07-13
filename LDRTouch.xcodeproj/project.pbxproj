@@ -12,10 +12,6 @@
 		1409D0C30ECF4949004866AF /* up2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1409D0C10ECF4949004866AF /* up2.png */; };
 		1409D0E70ECF4BEC004866AF /* dialogue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1409D0E60ECF4BEC004866AF /* dialogue.png */; };
 		1409D0EA0ECF4C0E004866AF /* HUDMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1409D0E90ECF4C0E004866AF /* HUDMessageView.m */; };
-		1409D2150ECF6184004866AF /* InformationSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1409D2140ECF6184004866AF /* InformationSheet.xib */; };
-		141324120F23CA5900E82250 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1413240D0F23CA5900E82250 /* NSObject+SBJSON.m */; };
-		141324130F23CA5900E82250 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1413240F0F23CA5900E82250 /* NSString+SBJSON.m */; };
-		141324140F23CA5900E82250 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 141324110F23CA5900E82250 /* SBJSON.m */; };
 		146E8D5E10015A0000C14C28 /* TableCellDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 146E8D5D10015A0000C14C28 /* TableCellDrawing.m */; };
 		14A29FA10F5B1B720077F0BC /* FeedListBackgroundCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A29FA00F5B1B720077F0BC /* FeedListBackgroundCell.m */; };
 		14A29FC90F5B1E950077F0BC /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A29FC80F5B1E950077F0BC /* Colors.m */; };
@@ -57,16 +53,17 @@
 		14BAC5030EC09D930037E340 /* FeedListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC5020EC09D930037E340 /* FeedListCell.m */; };
 		14BAC52C0EC09FFE0037E340 /* FeedDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC52B0EC09FFE0037E340 /* FeedDownloader.m */; };
 		14BAC57C0EC0A7320037E340 /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC57B0EC0A7320037E340 /* CacheManager.m */; };
-		14BAC5C70EC0ACF40037E340 /* UserSettingSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14BAC5C60EC0ACF40037E340 /* UserSettingSheet.xib */; };
 		14BAC83B0EC47C470037E340 /* UserSettingSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC8380EC47C470037E340 /* UserSettingSheetController.m */; };
 		14BAC83C0EC47C470037E340 /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC83A0EC47C470037E340 /* UserSettings.m */; };
-		14BAC8BA0EC484DF0037E340 /* PinListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14BAC8B80EC484DE0037E340 /* PinListView.xib */; };
 		14BAC8C60EC485800037E340 /* PinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC8C50EC485800037E340 /* PinListViewController.m */; };
 		14BAC9560EC48F370037E340 /* FeedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC9550EC48F370037E340 /* FeedView.m */; };
 		14BAC95D0EC48F560037E340 /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BAC95B0EC48F560037E340 /* FeedCell.m */; };
 		14BACA280EC4A2810037E340 /* EntryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BACA270EC4A2810037E340 /* EntryView.m */; };
 		14BACAE80EC4BD650037E340 /* MarkAsReadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BACAE70EC4BD650037E340 /* MarkAsReadOperation.m */; };
 		14BACAEB0EC4BD730037E340 /* AddPinOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BACAEA0EC4BD730037E340 /* AddPinOperation.m */; };
+		14FDD8F41007A47200B081AA /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FDD8EF1007A47200B081AA /* NSObject+SBJSON.m */; };
+		14FDD8F51007A47200B081AA /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FDD8F11007A47200B081AA /* NSString+SBJSON.m */; };
+		14FDD8F61007A47200B081AA /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FDD8F31007A47200B081AA /* SBJSON.m */; };
 		1D3623260D0F684500981E51 /* LDRTouchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* LDRTouchAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -85,15 +82,7 @@
 		1409D0E60ECF4BEC004866AF /* dialogue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialogue.png; sourceTree = "<group>"; };
 		1409D0E80ECF4C0E004866AF /* HUDMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDMessageView.h; sourceTree = "<group>"; };
 		1409D0E90ECF4C0E004866AF /* HUDMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDMessageView.m; sourceTree = "<group>"; };
-		1409D2140ECF6184004866AF /* InformationSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InformationSheet.xib; sourceTree = "<group>"; };
 		141322660F23098D00E82250 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		1413240B0F23CA5900E82250 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		1413240C0F23CA5900E82250 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		1413240D0F23CA5900E82250 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		1413240E0F23CA5900E82250 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		1413240F0F23CA5900E82250 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
-		141324100F23CA5900E82250 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		141324110F23CA5900E82250 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
 		146E8D5C10015A0000C14C28 /* TableCellDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCellDrawing.h; sourceTree = "<group>"; };
 		146E8D5D10015A0000C14C28 /* TableCellDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCellDrawing.m; sourceTree = "<group>"; };
 		14A29F9F0F5B1B720077F0BC /* FeedListBackgroundCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedListBackgroundCell.h; sourceTree = "<group>"; };
@@ -154,14 +143,10 @@
 		14BAC52B0EC09FFE0037E340 /* FeedDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedDownloader.m; sourceTree = "<group>"; };
 		14BAC57A0EC0A7320037E340 /* CacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheManager.h; sourceTree = "<group>"; };
 		14BAC57B0EC0A7320037E340 /* CacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManager.m; sourceTree = "<group>"; };
-		14BAC5B90EC0ACD00037E340 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/UserSettingSheet.xib; sourceTree = "<group>"; };
-		14BAC5C80EC0ACFC0037E340 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/UserSettingSheet.xib; sourceTree = "<group>"; };
 		14BAC8370EC47C470037E340 /* UserSettingSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingSheetController.h; sourceTree = "<group>"; };
 		14BAC8380EC47C470037E340 /* UserSettingSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingSheetController.m; sourceTree = "<group>"; };
 		14BAC8390EC47C470037E340 /* UserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettings.h; sourceTree = "<group>"; };
 		14BAC83A0EC47C470037E340 /* UserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettings.m; sourceTree = "<group>"; };
-		14BAC8B90EC484DE0037E340 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PinListView.xib; sourceTree = "<group>"; };
-		14BAC8BE0EC4850C0037E340 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/PinListView.xib; sourceTree = "<group>"; };
 		14BAC8C40EC485800037E340 /* PinListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinListViewController.h; sourceTree = "<group>"; };
 		14BAC8C50EC485800037E340 /* PinListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinListViewController.m; sourceTree = "<group>"; };
 		14BAC9540EC48F370037E340 /* FeedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedView.h; sourceTree = "<group>"; };
@@ -176,6 +161,13 @@
 		14BACAEA0EC4BD730037E340 /* AddPinOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPinOperation.m; sourceTree = "<group>"; };
 		14BACAEC0EC4BD850037E340 /* Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operation.h; sourceTree = "<group>"; };
 		14BACCD50EC9BB330037E340 /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
+		14FDD8ED1007A47200B081AA /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		14FDD8EE1007A47200B081AA /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		14FDD8EF1007A47200B081AA /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		14FDD8F01007A47200B081AA /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		14FDD8F11007A47200B081AA /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		14FDD8F21007A47200B081AA /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		14FDD8F31007A47200B081AA /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* LDRTouchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDRTouchAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* LDRTouchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDRTouchAppDelegate.m; sourceTree = "<group>"; };
@@ -227,23 +219,8 @@
 				14BAC4FF0EC09D510037E340 /* Cells */,
 				14BAC86B0EC47F930037E340 /* Settings */,
 				14BAC86A0EC47F720037E340 /* Utils */,
-				14BAC1A70EC079500037E340 /* JSON */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		14BAC1A70EC079500037E340 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				1413240B0F23CA5900E82250 /* JSON.h */,
-				1413240C0F23CA5900E82250 /* NSObject+SBJSON.h */,
-				1413240D0F23CA5900E82250 /* NSObject+SBJSON.m */,
-				1413240E0F23CA5900E82250 /* NSString+SBJSON.h */,
-				1413240F0F23CA5900E82250 /* NSString+SBJSON.m */,
-				141324100F23CA5900E82250 /* SBJSON.h */,
-				141324110F23CA5900E82250 /* SBJSON.m */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 		14BAC4000EC0987D0037E340 /* images */ = {
@@ -324,6 +301,7 @@
 				14BAC1E80EC07BD20037E340 /* Reachability.m */,
 				146E8D5C10015A0000C14C28 /* TableCellDrawing.h */,
 				146E8D5D10015A0000C14C28 /* TableCellDrawing.m */,
+				14FDD8F81007A47C00B081AA /* JSON */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -366,6 +344,20 @@
 			name = Operations;
 			sourceTree = "<group>";
 		};
+		14FDD8F81007A47C00B081AA /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				14FDD8ED1007A47200B081AA /* JSON.h */,
+				14FDD8EE1007A47200B081AA /* NSObject+SBJSON.h */,
+				14FDD8EF1007A47200B081AA /* NSObject+SBJSON.m */,
+				14FDD8F01007A47200B081AA /* NSString+SBJSON.h */,
+				14FDD8F11007A47200B081AA /* NSString+SBJSON.m */,
+				14FDD8F21007A47200B081AA /* SBJSON.h */,
+				14FDD8F31007A47200B081AA /* SBJSON.m */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,9 +394,6 @@
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
 				14BAC3870EC092830037E340 /* SiteView.xib */,
-				14BAC8B80EC484DE0037E340 /* PinListView.xib */,
-				1409D2140ECF6184004866AF /* InformationSheet.xib */,
-				14BAC5C60EC0ACF40037E340 /* UserSettingSheet.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				14A2A55B0F5C60430077F0BC /* Entitlements.plist */,
 				14BAC41D0EC098F80037E340 /* InfoPlist.strings */,
@@ -491,12 +480,9 @@
 				14BAC4190EC0987D0037E340 /* pin.png in Resources */,
 				14BAC41A0EC0987D0037E340 /* list.png in Resources */,
 				14BAC41E0EC098F80037E340 /* InfoPlist.strings in Resources */,
-				14BAC5C70EC0ACF40037E340 /* UserSettingSheet.xib in Resources */,
-				14BAC8BA0EC484DF0037E340 /* PinListView.xib in Resources */,
 				1409D0C20ECF4949004866AF /* down2.png in Resources */,
 				1409D0C30ECF4949004866AF /* up2.png in Resources */,
 				1409D0E70ECF4BEC004866AF /* dialogue.png in Resources */,
-				1409D2150ECF6184004866AF /* InformationSheet.xib in Resources */,
 				14B2FB7B0EFD2F7200AD611D /* reflesh.png in Resources */,
 				14A2A05F0F5B25AA0077F0BC /* NavBack.png in Resources */,
 				14A2A0600F5B25AA0077F0BC /* NavBackSmall.png in Resources */,
@@ -538,15 +524,15 @@
 				14BACAEB0EC4BD730037E340 /* AddPinOperation.m in Sources */,
 				1409CFEF0ECF3C7E004866AF /* PinListCell.m in Sources */,
 				1409D0EA0ECF4C0E004866AF /* HUDMessageView.m in Sources */,
-				141324120F23CA5900E82250 /* NSObject+SBJSON.m in Sources */,
-				141324130F23CA5900E82250 /* NSString+SBJSON.m in Sources */,
-				141324140F23CA5900E82250 /* SBJSON.m in Sources */,
 				14A29FA10F5B1B720077F0BC /* FeedListBackgroundCell.m in Sources */,
 				14A29FC90F5B1E950077F0BC /* Colors.m in Sources */,
 				14A29FCF0F5B209B0077F0BC /* FeedBackgroundCell.m in Sources */,
 				14A29FDD0F5B24710077F0BC /* PinListBackgroundCell.m in Sources */,
 				14A2A09E0F5B29C30077F0BC /* UICWebView.m in Sources */,
 				146E8D5E10015A0000C14C28 /* TableCellDrawing.m in Sources */,
+				14FDD8F41007A47200B081AA /* NSObject+SBJSON.m in Sources */,
+				14FDD8F51007A47200B081AA /* NSString+SBJSON.m in Sources */,
+				14FDD8F61007A47200B081AA /* SBJSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,24 +555,6 @@
 				14BAC41F0EC098FF0037E340 /* Japanese */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		14BAC5C60EC0ACF40037E340 /* UserSettingSheet.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				14BAC5B90EC0ACD00037E340 /* English */,
-				14BAC5C80EC0ACFC0037E340 /* Japanese */,
-			);
-			name = UserSettingSheet.xib;
-			sourceTree = "<group>";
-		};
-		14BAC8B80EC484DE0037E340 /* PinListView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				14BAC8B90EC484DE0037E340 /* English */,
-				14BAC8BE0EC4850C0037E340 /* Japanese */,
-			);
-			name = PinListView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

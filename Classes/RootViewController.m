@@ -9,7 +9,6 @@
 #import "Reachability.h";
 #import "JSON.h"
 #import "NSString+XMLExtensions.h"
-#import "Debug.h"
 
 #define INSETS 18
 
@@ -379,14 +378,13 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 #pragma mark <UI Methods>
 
 - (IBAction)showSettingView:(id)sender {
-	UserSettingSheetController *controller = [[UserSettingSheetController alloc]
-											  initWithNibName:@"UserSettingSheet" bundle:nil];
+	UserSettingSheetController *controller = [[UserSettingSheetController alloc] init];
 	[self presentModalViewController:controller animated:YES];
 	[controller release];
 }
 
 - (IBAction)showPinList:(id)sender {
-	PinListViewController *controller = [[PinListViewController alloc] initWithNibName:@"PinListView" bundle:nil];
+	PinListViewController *controller = [[PinListViewController alloc] init];
 	[self presentModalViewController:controller animated:YES];
 	[controller release];
 }

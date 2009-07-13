@@ -1,7 +1,6 @@
 #import "LDRTouchAppDelegate.h"
 #import "RootViewController.h"
 #import "Operation.h"
-#import "Debug.h"
 
 @implementation LDRTouchAppDelegate
 
