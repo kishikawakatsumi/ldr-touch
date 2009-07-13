@@ -161,7 +161,7 @@ static LoginManager *loginManager = NULL;
 	loginManager = [LDRTouchAppDelegate sharedLoginManager];
 	[loginManager updateStatus];
 	
-	sharedSiteViewController = [[SiteViewController alloc] initWithNibName:@"SiteView" bundle:nil];
+	sharedSiteViewController = [[SiteViewController alloc] init];
 	sharedSiteViewController.view.autoresizesSubviews = YES;
 	sharedSiteViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	

@@ -8,6 +8,8 @@
 	UserSettingsSortOrder sortOrder;
 	UserSettingsViewMode viewMode;
 	NSMutableDictionary *cells;
+	UITextField *nameField;
+	UITextField *passwordField;
 }
 	
 @end

@@ -121,7 +121,12 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[textField resignFirstResponder];
+	if (textField == nameField) {
+		[textField resignFirstResponder];
+		[passwordField becomeFirstResponder];
+	} else {
+		[textField resignFirstResponder];
+	}
 	return YES;
 }
 
@@ -222,7 +227,7 @@
 			[inputField setAutocorrectionType:UITextAutocorrectionTypeNo];
 			[inputField setEnablesReturnKeyAutomatically:YES];
 			[inputField setKeyboardType:UIKeyboardTypeASCIICapable];
-			[inputField setReturnKeyType:UIReturnKeyDone];
+			[inputField setReturnKeyType:UIReturnKeyNext];
 			
 			[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 			[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -232,6 +237,8 @@
 			[cells setObject:inputField forKey:@"userName"];
 			
 			[inputField release];
+			
+			nameField = inputField;
 		}
 		
 		return cell;
@@ -265,6 +272,8 @@
 			[cells setObject:inputField forKey:@"password"];
 			
 			[inputField release];
+			
+			passwordField = inputField;
 		}
 		
 		return cell;

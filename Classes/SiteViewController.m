@@ -6,9 +6,6 @@
 
 @implementation SiteViewController
 
-@synthesize webView;
-@synthesize backButton;
-@synthesize forwardButton;
 @synthesize pageURL;
 @synthesize lastPageURL;
 
@@ -16,8 +13,6 @@
 	LOG_CURRENT_METHOD;
 	[lastPageURL release];
 	[pageURL release];
-	[forwardButton release];
-	[backButton release];
 	[webView setDelegate:nil];
 	[webView release];
     [super dealloc];
@@ -98,6 +93,43 @@
 }
 
 #pragma mark <UIViewController> Methods
+
+- (void)loadView {
+	[super loadView];
+	UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+	self.view = rootView;
+	[rootView release];
+	
+	webView = [[UICWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+	[webView setDelegate:self];
+	[webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+	[webView setAutoresizesSubviews:YES];
+	[webView setDetectsPhoneNumbers:YES];
+	[webView setScalesPageToFit:YES];
+	[self.view addSubview:webView];
+	
+	UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 416.0f, 320.0f, 44.0f)];
+	[toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+	[toolbar setAutoresizesSubviews:YES];
+	[toolbar setBarStyle:UIBarStyleBlackTranslucent];
+	UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavBack.png"] style:UIBarButtonItemStylePlain target:webView action:@selector(goBack)];
+	forwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavForward.png"] style:UIBarButtonItemStylePlain target:webView action:@selector(goForward)];
+	UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:webView action:@selector(reload)];
+	UIBarButtonItem *stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:webView action:@selector(stopLoading)];
+	UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPushed:)];
+	[toolbar setItems:[NSArray arrayWithObjects:
+					   space, backButton, space, forwardButton, space, reloadButton, space, 
+					   stopButton, space, actionButton, space, nil]];
+	[space release];
+	[backButton release];
+	[forwardButton release];
+	[reloadButton release];
+	[stopButton release];
+	[actionButton release];
+	[rootView addSubview:toolbar];
+	[toolbar release];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
