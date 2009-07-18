@@ -192,6 +192,12 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 	
 	NSNumber *created_on = [currentItem objectForKey:@"created_on"];
 	NSNumber *modified_on = [currentItem objectForKey:@"modified_on"];
+	if ((NSNull *)created_on == [NSNull null]) {
+		created_on = nil;
+	}
+	if ((NSNull *)modified_on == [NSNull null]) {
+		modified_on = nil;
+	}
 	NSDate *creationDate = [NSDate dateWithTimeIntervalSince1970:[created_on integerValue]];
 	NSDate *modifiedDate = [NSDate dateWithTimeIntervalSince1970:[modified_on integerValue]];
 	

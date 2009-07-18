@@ -52,6 +52,9 @@ static UIImage *unreadMark = NULL;
 NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	id date1 = [arg1 objectForKey:@"created_on"];
 	id date2 = [arg2 objectForKey:@"created_on"];
+	if (date1 == [NSNull null] || date2 == [NSNull null]) {
+		return 0;
+	}
 	
 	return [date1 compare:date2] * -1;
 }
