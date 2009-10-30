@@ -48,12 +48,12 @@ static UIColor *whiteColor = NULL;
 	const CGFloat RECT_PADDING = 8.0f;
 	rect = CGRectInset(rect, RECT_PADDING, RECT_PADDING);
 	
-	const CGFloat ROUND_RECT_CORNER_RADIUS = 8.0f;
+	const CGFloat ROUND_RECT_CORNER_RADIUS = 6.0f;
 	CGPathRef roundRectPath = NewPathWithRoundRect(rect, ROUND_RECT_CORNER_RADIUS);
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
-	const CGFloat BACKGROUND_OPACITY = 0.5f;
+	const CGFloat BACKGROUND_OPACITY = 0.6f;
 	CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, BACKGROUND_OPACITY);
 	CGContextAddPath(context, roundRectPath);
 	CGContextFillPath(context);
@@ -67,7 +67,7 @@ static UIColor *whiteColor = NULL;
 	
 	[whiteColor set];
 	CGSize messageSize = [message sizeWithFont:messageFont constrainedToSize:CGSizeMake(kHUDDefaultWidth, kHUDConstrainedHeight) lineBreakMode:UILineBreakModeCharacterWrap];
-	[message drawInRect:CGRectMake((rect.size.width - messageSize.width) / 2 + 8.0f, (rect.size.height - messageSize.height) / 2 + 9.0f, rect.size.width - 18.0f, rect.size.height) withFont:messageFont lineBreakMode:UILineBreakModeCharacterWrap alignment:UITextAlignmentLeft];
+	[message drawInRect:CGRectMake((rect.size.width - messageSize.width) / 2 + 8.0f, (rect.size.height - messageSize.height) / 2 + 8.0f, rect.size.width - 18.0f, rect.size.height) withFont:messageFont lineBreakMode:UILineBreakModeCharacterWrap alignment:UITextAlignmentLeft];
 }
 
 - (void)showInView:(UIView*)view {
@@ -76,10 +76,10 @@ static UIColor *whiteColor = NULL;
 	CGSize messageSize = [message sizeWithFont:messageFont constrainedToSize:CGSizeMake(kHUDDefaultWidth, kHUDConstrainedHeight) lineBreakMode:UILineBreakModeCharacterWrap];
 	
 	CGRect self_rect = self.frame;
-	self_rect.size.width = messageSize.width + 40.0f;
-	self_rect.size.height = MAX(messageSize.height + 40.0f, kHUDDefaultHeight);
-	self_rect.origin.x = (superview_rect.size.width - self_rect.size.width) / 2;
-	self_rect.origin.y = (superview_rect.size.height - self_rect.size.height) / 2  - 44.0f;
+	self_rect.size.width = lroundf(messageSize.width + 40.0f);
+	self_rect.size.height = lroundf(MAX(messageSize.height + 40.0f, kHUDDefaultHeight));
+	self_rect.origin.x = lroundf((superview_rect.size.width - self_rect.size.width) / 2);
+	self_rect.origin.y = lroundf((superview_rect.size.height - self_rect.size.height) / 2  - 44.0f);
 	
 	self.frame = self_rect;
 	[view addSubview:self];

@@ -75,7 +75,7 @@
 	backButton.enabled = webView.canGoBack;
     forwardButton.enabled = webView.canGoForward;
 	
-	self.title = [aWebView stringByEvaluatingJavaScriptFromString:@"document.title"];
+	titleView.text = [aWebView stringByEvaluatingJavaScriptFromString:@"document.title"];
 	NSString *aURL = [[[aWebView request] mainDocumentURL] absoluteString];
 	self.lastPageURL = aURL;
 	
@@ -99,6 +99,16 @@
 	UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
 	self.view = rootView;
 	[rootView release];
+    
+    titleView = [[UILabel alloc] initWithFrame:CGRectMake(61.0f, 6.0f, 254.0f, 33.0f)];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.textColor = [UIColor whiteColor];
+    titleView.font = [UIFont boldSystemFontOfSize:14.0f];
+    titleView.shadowColor = [UIColor darkGrayColor];
+    titleView.shadowOffset = CGSizeMake(0.0f, -1.0f);
+    titleView.numberOfLines = 2;
+    [self.navigationItem setTitleView:titleView];
+    [titleView release];
 	
 	webView = [[UICWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
 	[webView setDelegate:self];
@@ -139,6 +149,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	
+    titleView.text = self.title;
+    
 	backButton.enabled = webView.canGoBack;
     forwardButton.enabled = webView.canGoForward;
 	

@@ -4,6 +4,7 @@
 
 @interface SiteViewController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate> {
 	UICWebView *webView;
+    UILabel *titleView;
 	UIBarButtonItem *backButton;
 	UIBarButtonItem *forwardButton;
 	

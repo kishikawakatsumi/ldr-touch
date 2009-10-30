@@ -289,10 +289,6 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	[self enableButtons];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 	LOG_CURRENT_METHOD;

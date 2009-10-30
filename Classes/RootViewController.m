@@ -31,8 +31,8 @@ static NSString *star = NULL;
 static NSString *starBlank = NULL;
 
 @synthesize feedListView;
-@synthesize toolBar;
-@synthesize refleshButton;
+@synthesize toolbar;
+@synthesize refreshButton;
 @synthesize pinListButton;
 @synthesize modifiedDateLabel;
 @synthesize modifiedTimeLabel;
@@ -69,9 +69,7 @@ static NSString *starBlank = NULL;
 	
 	[modifiedTimeLabel release];
 	[modifiedDateLabel release];
-	[pinListButton release];
-	[refleshButton release];
-	[toolBar release];
+    
 	[feedListView setDelegate:nil];
 	[feedListView release];
     [super dealloc];
@@ -105,7 +103,7 @@ static NSString *starBlank = NULL;
 
 - (void)loadFeedList {
 	LOG_CURRENT_METHOD;
-	[refleshButton setEnabled:NO];
+	[refreshButton setEnabled:NO];
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	
@@ -150,7 +148,7 @@ static NSString *starBlank = NULL;
 	
 	[self reset];
 	
-	[refleshButton setEnabled:YES];
+	[refreshButton setEnabled:YES];
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	
@@ -169,7 +167,7 @@ static NSString *starBlank = NULL;
 
 - (void)httpClientFailed:(HttpClient*)sender error:(NSError*)error {
 	[self reset];
-	[refleshButton setEnabled:YES];
+	[refreshButton setEnabled:YES];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
@@ -204,7 +202,7 @@ static NSString *starBlank = NULL;
 }
 
 - (void)loginManagerFailed:(LoginManager *)sender error:(NSError *)error {
-	[refleshButton setEnabled:YES];
+	[refreshButton setEnabled:YES];
 	
 	[sender setDelegate:nil];
 	
@@ -393,13 +391,11 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	LOG_CURRENT_METHOD;
 	LoginManager *loginManager = [LDRTouchAppDelegate sharedLoginManager];
 	if (loginManager.remoteHostStatus == NotReachable) {
-		[refleshButton setEnabled:NO];
+		[refreshButton setEnabled:NO];
 		[pinListButton setEnabled:NO];
-//		[toolBar setBarStyle:UIBarStyleBlackOpaque];
 	} else {
-		[refleshButton setEnabled:YES];
+		[refreshButton setEnabled:YES];
 		[pinListButton setEnabled:YES];
-//		[toolBar setBarStyle:UIBarStyleDefault];
 	}
 }
 
@@ -530,6 +526,36 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 
 #pragma mark <UIViewController> Methods
 
+- (void)loadView {
+	[super loadView];
+	UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+	self.view = contentView;
+	[contentView release];
+    
+    feedListView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 372.0f)];
+    feedListView.delegate = self;
+    feedListView.dataSource = self;
+    [contentView addSubview:feedListView];
+    [feedListView release];
+	
+	toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 372.0f, 320.0f, 44.0f)];
+	UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpace.width = 24.0f;
+	UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	refreshButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh.png"] style:UIBarButtonItemStylePlain target:self action:@selector(refreshData)];
+	pinListButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showPinList:)];
+	UIBarButtonItem *settingButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettingView:)];
+	[toolbar setItems:[NSArray arrayWithObjects:
+					   refreshButton, flexibleSpace, pinListButton, fixedSpace, settingButton, nil]];
+	[fixedSpace release];
+    [flexibleSpace release];
+	[refreshButton release];
+	[pinListButton release];
+	[settingButton release];
+	[contentView addSubview:toolbar];
+	[toolbar release];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -540,13 +566,13 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	[modifiedDateLabel setFont:[UIFont systemFontOfSize:12.0f]];
 	[modifiedDateLabel setTextColor:[UIColor whiteColor]];
 	[modifiedDateLabel setBackgroundColor:[UIColor clearColor]];
-	[toolBar addSubview:modifiedDateLabel];
+	[toolbar addSubview:modifiedDateLabel];
 	
 	modifiedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(101.0f, 11.0f, 100.0f, 21.0f)];
 	[modifiedTimeLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
 	[modifiedTimeLabel setTextColor:[UIColor whiteColor]];
 	[modifiedTimeLabel setBackgroundColor:[UIColor clearColor]];
-	[toolBar addSubview:modifiedTimeLabel];
+	[toolbar addSubview:modifiedTimeLabel];
 	
 	if (userSettings.lastModified) {
 		[modifiedDateLabel setText:[dateFormatter stringFromDate:userSettings.lastModified]];
@@ -573,18 +599,6 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	
 	[self.feedListView deselectRowAtIndexPath:[self.feedListView indexPathForSelectedRow] animated:YES];
 	[self.feedListView reloadData];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)didReceiveMemoryWarning {

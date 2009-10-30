@@ -554,6 +554,7 @@
 	[navBar setItems:[NSArray arrayWithObject:navItem]];
 	[self.view addSubview:navBar];
 	[navBar release];
+    [navItem release];
 	
 	userSettingSheet = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 416.0f) style:UITableViewStyleGrouped];
 	userSettingSheet.delegate = self;
