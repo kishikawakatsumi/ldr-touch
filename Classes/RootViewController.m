@@ -513,7 +513,14 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 		return;
 	}
 	
-	[self setTitle:@"Top"];
+    UIBarButtonItem *backBarButtonItem = 
+    [[UIBarButtonItem alloc] initWithImage:
+     [UIImage imageNamed:@"backBarButtonImage.png"] 
+                                     style:UIBarButtonItemStyleBordered
+                                    target:nil 
+                                    action:nil];
+    [self.navigationItem setBackBarButtonItem:backBarButtonItem];
+    [backBarButtonItem release];
 	
 	FeedViewController *controller = [[FeedViewController alloc] init];
 	NSDictionary *feed = [[organizedFeedList objectForKey:[sectionHeaders objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
