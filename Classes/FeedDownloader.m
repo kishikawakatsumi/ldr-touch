@@ -76,7 +76,7 @@
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/unread"]
+	[conn post:[NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/unread"]
 	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
 				subscribe_id, @"subscribe_id", 
 				loginManager.api_key, @"ApiKey", nil]];

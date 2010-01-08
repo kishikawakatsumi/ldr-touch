@@ -1,9 +1,8 @@
 #import <UIKit/UIKit.h>
-#import "UICWebView.h"
 #import "HttpClient.h"
 
 @interface SiteViewController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate> {
-	UICWebView *webView;
+	UIWebView *webView;
     UILabel *titleView;
 	UIBarButtonItem *backButton;
 	UIBarButtonItem *forwardButton;

@@ -68,7 +68,7 @@
 	
 	NSHTTPCookieStorage *cookieStotage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
 	[cookieStotage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways]; 
-	NSArray *cookies = [cookieStotage cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", @"http://", userSettings.serviceURI]]];
+	NSArray *cookies = [cookieStotage cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", userSettings.serviceURI]]];
 	
 	for (NSHTTPCookie *cookie in cookies) {
 		[cookieStotage deleteCookie:cookie];
@@ -77,17 +77,24 @@
 	[self reset];
 	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	if ([userSettings.serviceURI rangeOfString:SERVICE_URI_LIVEDOOR].location == NSNotFound) {
-		[conn post:@"http://fastladder.com/login" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
-															  @"Sign+in", @"commit",
-															  userName, @"username",
-															  password, @"password", nil]];
-	} else {
+    NSString *serviceURI = userSettings.serviceURI;
+    LOG(@"%@", serviceURI);
+	if ([serviceURI rangeOfString:SERVICE_URI_LIVEDOOR options:NSCaseInsensitiveSearch].location != NSNotFound) {
 		[conn post:@"http://member.livedoor.com/login/" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
 																	@"http://reader.livedoor.com/reader/", @".next",
 																	@"reader", @".sv",
 																	userName, @"livedoor_id",
 																	password, @"password", nil]];
+	} else if ([serviceURI rangeOfString:SERVICE_URI_FASTLADDER options:NSCaseInsensitiveSearch].location != NSNotFound) {
+		[conn post:@"http://fastladder.com/login" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+															  @"Sign+in", @"commit",
+															  userName, @"username",
+															  password, @"password", nil]];
+	} else {
+        [conn post:@"%@/login" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           @"Sign+in", @"commit",
+                                           userName, @"username",
+                                           password, @"password", nil]];
 	}
 }
 
@@ -96,7 +103,7 @@
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	
 	NSHTTPCookieStorage *cookieStotage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-	NSArray *cookies = [cookieStotage cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", @"http://", userSettings.serviceURI]]];
+	NSArray *cookies = [cookieStotage cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", userSettings.serviceURI]]];
 	
 	for (NSHTTPCookie *cookie in cookies) {
 		if ([cookie.name isEqualToString:@"reader_sid"]) {

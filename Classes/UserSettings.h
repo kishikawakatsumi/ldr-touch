@@ -41,6 +41,8 @@ typedef enum {
 	NSMutableArray *pinList;
 }
 
+- (NSString *)serviceHostName;
+
 @property (nonatomic) NSInteger version;
 @property (nonatomic, retain) NSString *userName;
 @property (nonatomic, retain) NSString *password;

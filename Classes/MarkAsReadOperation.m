@@ -73,13 +73,13 @@
 	NSString *apiURI;
 	NSDictionary *params;
 	if (timestamps) {
-		apiURI = [NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/touch"];
+		apiURI = [NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/touch"];
 		params = [NSDictionary dictionaryWithObjectsAndKeys:
 				  subscribe_id, @"subscribe_id",
 				  [timestamps componentsJoinedByString:@","], @"timestamp",
 				  loginManager.api_key, @"ApiKey", nil];
 	} else {
-		apiURI = [NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/touch_all"];
+		apiURI = [NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/touch_all"];
 		params = [NSDictionary dictionaryWithObjectsAndKeys:subscribe_id, @"subscribe_id", loginManager.api_key, @"ApiKey", nil];
 	}
 	

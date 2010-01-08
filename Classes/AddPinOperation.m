@@ -71,7 +71,7 @@
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/pin/add"]
+	[conn post:[NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/pin/add"]
 	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
 				link, @"link",
 				title, @"title",

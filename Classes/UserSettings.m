@@ -109,4 +109,29 @@
 	}
 }
 
+- (NSString *)serviceURI {
+    NSString *normalized = serviceURI;
+    if ([normalized hasSuffix:@"/"]) {
+        normalized = [normalized substringToIndex:[normalized length] - 1];
+    }
+    if (![normalized hasPrefix:@"http://"] && ![normalized hasPrefix:@"https://"]) {
+        normalized = [NSString stringWithFormat:@"http://%@", normalized];
+    } 
+    return normalized;
+}
+
+- (NSString *)serviceHostName {
+    NSString *hostName = serviceURI;
+    if ([hostName hasSuffix:@"/"]) {
+        hostName = [hostName substringToIndex:[hostName length] - 1];
+    }
+    if ([hostName hasPrefix:@"https://"]) {
+        hostName = [hostName substringFromIndex:8];
+    } else if ([hostName hasPrefix:@"http://"]) {
+        hostName = [hostName substringFromIndex:7];
+    }
+    LOG(@"%@", hostName);
+    return hostName;
+}
+
 @end

@@ -16,8 +16,6 @@
 		
 		webView = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 372.0f)];
 		[webView setOpaque:YES];
-//		[webView _setCheckeredPatternEnabled:YES];
-//		[webView _setTileDrawingEnabled:YES];
 		
 		[self addSubview:webView];
 		

@@ -154,7 +154,7 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	[self reset];
 	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/unread"]
+	[conn post:[NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/unread"]
 	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
 				subscribe_id, @"subscribe_id", 
 				loginManager.api_key, @"ApiKey", nil]];

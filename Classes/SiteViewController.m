@@ -110,7 +110,7 @@
     [self.navigationItem setTitleView:titleView];
     [titleView release];
 	
-	webView = [[UICWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+	webView = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
 	[webView setDelegate:self];
 	[webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 	[webView setAutoresizesSubviews:YES];

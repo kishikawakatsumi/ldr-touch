@@ -153,7 +153,7 @@ static LoginManager *loginManager = NULL;
 	
 	[self loadUserSettings];
 	
-	[[Reachability sharedReachability] setHostName:userSettings.serviceURI];
+	[[Reachability sharedReachability] setHostName:[userSettings serviceHostName]];
 	[[Reachability sharedReachability] setNetworkStatusNotificationsEnabled:YES];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:)
 												 name:@"kNetworkReachabilityChangedNotification" object:nil];

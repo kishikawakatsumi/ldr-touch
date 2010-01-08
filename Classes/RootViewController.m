@@ -121,7 +121,7 @@ static NSString *starBlank = NULL;
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/subs"]
+	[conn post:[NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/subs"]
 	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
 				@"1", @"unread", 
 				loginManager.api_key, @"ApiKey", nil]];

@@ -23,7 +23,7 @@
 + (NSString *)entriesDirectory {
 	NSString *cacheDirectory = [self cacheDirectory];
 	NSString *pathToTextFile = [cacheDirectory stringByAppendingPathComponent:@"path.txt"];
-	NSString *directoryName = [NSString stringWithContentsOfFile:pathToTextFile];
+	NSString *directoryName = [NSString stringWithContentsOfFile:pathToTextFile encoding:NSUTF8StringEncoding error:nil];
 	NSString *entriesDirectoryPath = [cacheDirectory stringByAppendingPathComponent:directoryName];
 	return entriesDirectoryPath;
 }

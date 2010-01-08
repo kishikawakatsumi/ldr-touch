@@ -44,7 +44,7 @@
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	
 	conn = [[HttpClient alloc] initWithDelegate:self];
-	[conn post:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/pin/all"]
+	[conn post:[NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/pin/all"]
 	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
 				loginManager.api_key, @"ApiKey", nil]];
 }
@@ -54,7 +54,7 @@
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	
 	LoginManager *loginManager = [LDRTouchAppDelegate sharedLoginManager];
-	NSURL *apiURI = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", @"http://", userSettings.serviceURI, @"/api/pin/remove"]];
+	NSURL *apiURI = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/pin/remove"]];
 	NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:apiURI
 													   cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:180.0];
 	
@@ -152,7 +152,7 @@
 		NSString *link = [NSString decodeXMLCharactersIn:[[pinList objectAtIndex:indexPath.row] objectForKey:@"link"]];
 		if ([self deletePin:link]) {
 			[pinList removeObjectAtIndex:indexPath.row];
-			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
 		}
     }
 }
