@@ -1,8 +1,9 @@
 #import <UIKit/UIKit.h>
+#import <iAd/iAd.h>
 #import "HttpClient.h"
 #import "FeedDownloader.h"
 
-@interface RootViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface RootViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ADBannerViewDelegate> {
 	UITableView *feedListView;
 	UIToolbar *toolbar;
 	UIBarButtonItem *refreshButton;
@@ -16,6 +17,8 @@
 	NSArray *feedList;
 	NSMutableDictionary *organizedFeedList;
 	NSArray *sectionHeaders;
+    
+    ADBannerView *adView;
 }
 
 @property (nonatomic, retain) UITableView *feedListView;

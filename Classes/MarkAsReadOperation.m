@@ -1,5 +1,6 @@
 #import "MarkAsReadOperation.h"
 #import "LDRTouchAppDelegate.h"
+#import "NetworkActivityManager.h"
 
 @implementation MarkAsReadOperation
 
@@ -64,7 +65,7 @@
 	
 	[self reset];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[NetworkActivityManager sharedInstance] pushActivity];
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
@@ -87,7 +88,7 @@
 }
 
 - (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 	LOG(@"mark as read: %@, status = %d", subscribe_id, [response statusCode]);
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
@@ -101,7 +102,7 @@
 }
 
 - (void)httpClientFailed:(HttpClient*)sender error:(NSError*)error {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 	[self failed];
 	[self reset];
 	[self release];

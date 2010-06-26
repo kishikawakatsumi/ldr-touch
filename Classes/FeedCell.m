@@ -32,8 +32,8 @@ static UIColor *blackColor = NULL;
 	blackColor = [Colors blackColor];
 }
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 		FeedBackgroundCell *selectedBackgroundView = [[FeedBackgroundCell alloc] initWithFrame:[self frame]];
 		[selectedBackgroundView setCell:self];

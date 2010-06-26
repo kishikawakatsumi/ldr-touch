@@ -1,5 +1,6 @@
 #import "SiteViewController.h"
 #import "LDRTouchAppDelegate.h"
+#import "NetworkActivityManager.h"
 #import "HUDMessageView.h"
 #import "JSON.h"
 #import <objc/runtime.h>
@@ -33,6 +34,15 @@
 	[actionSheet release];
 }
 
+- (NSString *)encodeString:(NSString *)string {
+    NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, 
+                                                                           (CFStringRef)string, 
+                                                                           NULL, 
+                                                                           (CFStringRef)@";/?:@&=$+{}<>,",
+                                                                           kCFStringEncodingUTF8);
+    return [result autorelease];
+}
+
 #pragma mark <UIActionSheetDelegate> Methods
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -40,7 +50,7 @@
 	if (buttonIndex == 0) {
 		[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:pageURL]]];
 	} else if (buttonIndex == 1) {
-		[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"http://www.google.co.jp/gwt/n?u=%@", pageURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
+		[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://instapaper.com/m?u=%@", [self encodeString:pageURL]]]]];
 	} else if (buttonIndex == 2) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:pageURL]];
 	}
@@ -60,7 +70,7 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)aWebView {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[NetworkActivityManager sharedInstance] pushActivity];
 	
 	backButton.enabled = webView.canGoBack;
     forwardButton.enabled = webView.canGoForward;
@@ -69,7 +79,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 	loadFinishedSuccesefully = YES;
 	
 	backButton.enabled = webView.canGoBack;
@@ -83,7 +93,7 @@
 }
 
 - (void)webView:(UIWebView *)aWebView didFailLoadWithError:(NSError *)error {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 	loadFinishedSuccesefully = NO;
 	
 	backButton.enabled = webView.canGoBack;
@@ -113,8 +123,6 @@
 	webView = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
 	[webView setDelegate:self];
 	[webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-	[webView setAutoresizesSubviews:YES];
-	[webView setDetectsPhoneNumbers:YES];
 	[webView setScalesPageToFit:YES];
 	[self.view addSubview:webView];
 	
@@ -159,7 +167,7 @@
 		UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 		NSURL *url;
 		if (userSettings.useMobileProxy) {
-			url = [NSURL URLWithString:[[NSString stringWithFormat:@"http://www.google.co.jp/gwt/n?u=%@", pageURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+			url = [NSURL URLWithString:[NSString stringWithFormat:@"http://instapaper.com/m?u=%@", [self encodeString:pageURL]]];
 		} else {
 			url = [NSURL URLWithString:pageURL];
 		}
@@ -170,7 +178,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	[webView stopLoading];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {

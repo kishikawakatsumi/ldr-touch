@@ -1,6 +1,6 @@
 #import "AddPinOperation.h"
 #import "LDRTouchAppDelegate.h"
-
+#import "NetworkActivityManager.h"
 
 @implementation AddPinOperation
 
@@ -65,7 +65,7 @@
 	
 	[self reset];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[NetworkActivityManager sharedInstance] pushActivity];
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
@@ -78,8 +78,8 @@
 				loginManager.api_key, @"ApiKey", nil]];
 }
 
-- (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+- (void)httpClientSucceeded:(HttpClient *)sender response:(NSHTTPURLResponse *)response data:(NSData *)data {
+    [[NetworkActivityManager sharedInstance] popActivity];
 	LOG(@"add pin: %@ <%@>, status = %d", title, link, [response statusCode]);
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
@@ -91,7 +91,7 @@
 }
 
 - (void)httpClientFailed:(HttpClient*)sender error:(NSError*)error {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 	[self failed];
 	[self reset];
 	[self release];

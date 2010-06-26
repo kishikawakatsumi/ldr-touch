@@ -2,6 +2,7 @@
 #import "LDRTouchAppDelegate.h"
 #import "LoginManager.h"
 #import "CacheManager.h"
+#import "NetworkActivityManager.h"
 #import "JSON.h"
 
 @interface NSObject (FeedDownloaderDelegate)
@@ -36,7 +37,6 @@
 
 - (void)dealloc {
 	LOG_CURRENT_METHOD;
-	[delegate release];
 	[feedList release];
 	[conn release];
     [super dealloc];
@@ -57,6 +57,7 @@
 }
 
 - (void)start {
+    LOG_CURRENT_METHOD;
 	if ([feedList count] <= counter) {
 		if ([delegate respondsToSelector:@selector(feedDownloaderSucceeded:)]) {
 			[delegate feedDownloaderSucceeded:self];
@@ -73,8 +74,6 @@
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
 	LoginManager *loginManager = [LDRTouchAppDelegate sharedLoginManager];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	
 	conn = [[HttpClient alloc] initWithDelegate:self];
 	[conn post:[NSString stringWithFormat:@"%@%@", userSettings.serviceURI, @"/api/unread"]
 	parameters:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -82,9 +81,7 @@
 				loginManager.api_key, @"ApiKey", nil]];
 }
 
-- (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	
+- (void)httpClientSucceeded:(HttpClient *)sender response:(NSHTTPURLResponse *)response data:(NSData *)data {
 	NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	NSDictionary *entries = [s JSONValue];
 	[s release];
@@ -100,12 +97,11 @@
 	[self start];
 }
 
-- (void)httpClientFailed:(HttpClient*)sender error:(NSError*)error {
+- (void)httpClientFailed:(HttpClient *)sender error:(NSError *)error {
 	[self reset];
 	if ([delegate respondsToSelector:@selector(feedDownloaderFailed:error:)]) {
 		[delegate feedDownloaderFailed:self error:error];
 	}
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 @end

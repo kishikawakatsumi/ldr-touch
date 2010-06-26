@@ -63,6 +63,8 @@
 	LOG(@"user name: %@, password: %@", userName, password);
 	
 	if ([userName length] == 0 || [password length] == 0) {
+        [self failed:nil];
+        [lock unlock];
 		return;
 	}
 	
@@ -80,7 +82,7 @@
     NSString *serviceURI = userSettings.serviceURI;
     LOG(@"%@", serviceURI);
 	if ([serviceURI rangeOfString:SERVICE_URI_LIVEDOOR options:NSCaseInsensitiveSearch].location != NSNotFound) {
-		[conn post:@"http://member.livedoor.com/login/" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+		[conn post:@"https://member.livedoor.com/login/index" parameters:[NSDictionary dictionaryWithObjectsAndKeys:
 																	@"http://reader.livedoor.com/reader/", @".next",
 																	@"reader", @".sv",
 																	userName, @"livedoor_id",

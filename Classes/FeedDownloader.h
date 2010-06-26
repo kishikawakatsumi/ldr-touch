@@ -10,7 +10,7 @@
 }
 
 @property (nonatomic, retain) NSArray *feedList;
-@property (nonatomic, retain) id delegate;
+@property (nonatomic, assign) id delegate;
 
 - (id)initWithFeedList:(NSArray *)aFeedList;
 - (void)start;

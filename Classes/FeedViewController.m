@@ -4,6 +4,7 @@
 #import "LDRTouchAppDelegate.h"
 #import "LoginManager.h"
 #import "CacheManager.h"
+#import "NetworkActivityManager.h"
 #import "MarkAsReadOperation.h"
 #import "JSON.h"
 #import "NSString+XMLExtensions.h"
@@ -141,7 +142,7 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 		return;
 	}
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[NetworkActivityManager sharedInstance] pushActivity];
 	
 	LoginManager *loginManager = [LDRTouchAppDelegate sharedLoginManager];
 	if (!loginManager.api_key) {
@@ -174,12 +175,12 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	
 	[self reset];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)httpClientFailed:(HttpClient*)sender error:(NSError*)error {
 	[self reset];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)loginManagerSucceeded:(LoginManager *)sender apiKey:(NSString *)apiKey {
@@ -214,7 +215,7 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	static NSString *CellIdentifier = @"FeedCell";
 	FeedCell *cell = (FeedCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[FeedCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f) reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
 	
 	NSDictionary *item = [items objectAtIndex:indexPath.row];
@@ -274,6 +275,17 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 	[feedView.nextButton setTarget:self];
 	[feedView.nextButton setAction:@selector(nextFeed:)];
 	[self setView:feedView];
+    
+    Class clazz = NSClassFromString(@"ADBannerView");
+    if (clazz) {
+        adView = [[clazz alloc] initWithFrame:CGRectZero];
+        adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;
+        adView.delegate = self;
+        
+        self.feedView.tableView.tableFooterView = adView;
+        
+        [adView release];
+    }
 }
 
 - (void)viewDidLoad {

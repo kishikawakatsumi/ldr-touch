@@ -2,6 +2,7 @@
 #import "PinListCell.h"
 #import "LDRTouchAppDelegate.h";
 #import "SiteViewController.h"
+#import "NetworkActivityManager.h"
 #import "NSString+XMLExtensions.h"
 #import "JSON.h";
 
@@ -38,7 +39,7 @@
 	[conn cancel];
 	[self reset];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[NetworkActivityManager sharedInstance] pushActivity];
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
@@ -65,12 +66,12 @@
 	[req setHTTPBody:[[body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] dataUsingEncoding:NSUTF8StringEncoding]];
 	[req setHTTPShouldHandleCookies:YES];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[NetworkActivityManager sharedInstance] pushActivity];
 	
 	NSHTTPURLResponse *res;
 	[NSURLConnection sendSynchronousRequest:req returningResponse:&res error:nil];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 	
 	if ([res statusCode] == 200) {
 		LOG(@"remove pin: <%@>, %d", link, [res statusCode]);
@@ -98,12 +99,12 @@
 	
 	[self reset];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)httpClientFailed:(HttpClient*)sender error:(NSError*)error {
 	[self reset];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)loginManagerSucceeded:(LoginManager *)sender apiKey:(NSString *)apiKey {
@@ -129,7 +130,7 @@
 	static NSString *CellIdentifier = @"PinListCell";
 	PinListCell *cell = (PinListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[[PinListCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f) reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[PinListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 	[cell setTitleText:[NSString decodeXMLCharactersIn:[[pinList objectAtIndex:indexPath.row] objectForKey:@"title"]]];
  	[cell setLinkText:[NSString decodeXMLCharactersIn:[[pinList objectAtIndex:indexPath.row] objectForKey:@"link"]]];

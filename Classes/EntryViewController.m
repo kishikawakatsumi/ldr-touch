@@ -3,6 +3,7 @@
 #import "HUDMessageView.h"
 #import "LDRTouchAppDelegate.h"
 #import "MarkAsReadOperation.h"
+#import "NetworkActivityManager.h"
 #import "AddPinOperation.h"
 #import "NSString+XMLExtensions.h"
 
@@ -320,7 +321,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[NetworkActivityManager sharedInstance] pushActivity];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -330,7 +331,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 		 [NSDictionary dictionaryWithObjectsAndKeys:[currentItem objectForKey:@"title"], @"title", [currentItem objectForKey:@"link"], @"link", nil]]) {
 		[self hilightedClipedPage];
 	}
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 	[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout = 'none';"];
 }
 
@@ -341,10 +342,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 		 [NSDictionary dictionaryWithObjectsAndKeys:[currentItem objectForKey:@"title"], @"title", [currentItem objectForKey:@"link"], @"link", nil]]) {
 		[self hilightedClipedPage];
 	}
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	if (IPHONE_OS_VERSION < 3.0) {
-		[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout = 'none';"];
-	}
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 #pragma mark <UIViewController> Methods
@@ -392,6 +390,10 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 	} else {
 		backedFromSiteView = NO;
 	}
+    if (shouldReload) {
+        shouldReload = NO;
+        [self loadEntry];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -402,7 +404,7 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	[entryView.webView stopLoading];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -419,6 +421,11 @@ static NSString *htmlBase = @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Stri
 	}
 	*/
 	LOG_CURRENT_METHOD;
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    shouldReload = YES;
 }
 
 @end

@@ -53,12 +53,19 @@
 		14BACA280EC4A2810037E340 /* EntryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BACA270EC4A2810037E340 /* EntryView.m */; };
 		14BACAE80EC4BD650037E340 /* MarkAsReadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BACAE70EC4BD650037E340 /* MarkAsReadOperation.m */; };
 		14BACAEB0EC4BD730037E340 /* AddPinOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BACAEA0EC4BD730037E340 /* AddPinOperation.m */; };
-		14FF44C210F7B11C0040F160 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FF44B710F7B11C0040F160 /* NSObject+SBJSON.m */; };
-		14FF44C310F7B11C0040F160 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FF44B910F7B11C0040F160 /* NSString+SBJSON.m */; };
-		14FF44C410F7B11C0040F160 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FF44BB10F7B11C0040F160 /* SBJSON.m */; };
-		14FF44C510F7B11C0040F160 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FF44BD10F7B11C0040F160 /* SBJsonBase.m */; };
-		14FF44C610F7B11C0040F160 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FF44BF10F7B11C0040F160 /* SBJsonParser.m */; };
-		14FF44C710F7B11C0040F160 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FF44C110F7B11C0040F160 /* SBJsonWriter.m */; };
+		14C2698611D548110094367B /* NetworkActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C2698511D548110094367B /* NetworkActivityManager.m */; };
+		14C26A3A11D5C4D60094367B /* NavBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C26A3911D5C4D60094367B /* NavBack@2x.png */; };
+		14C26A3C11D5C4DF0094367B /* NavForward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C26A3B11D5C4DF0094367B /* NavForward@2x.png */; };
+		14C26A4411D5C5950094367B /* unread@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C26A4311D5C5950094367B /* unread@2x.png */; };
+		14C26A5B11D5C9A50094367B /* unread2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C26A5A11D5C9A50094367B /* unread2@2x.png */; };
+		14C26A5F11D5CA090094367B /* backBarButtonImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C26A5E11D5CA090094367B /* backBarButtonImage@2x.png */; };
+		14C26AAB11D5CE0B0094367B /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C26AA011D5CE0B0094367B /* NSObject+SBJSON.m */; };
+		14C26AAC11D5CE0B0094367B /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C26AA211D5CE0B0094367B /* NSString+SBJSON.m */; };
+		14C26AAD11D5CE0B0094367B /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C26AA411D5CE0B0094367B /* SBJSON.m */; };
+		14C26AAE11D5CE0B0094367B /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C26AA611D5CE0B0094367B /* SBJsonBase.m */; };
+		14C26AAF11D5CE0B0094367B /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C26AA811D5CE0B0094367B /* SBJsonParser.m */; };
+		14C26AB011D5CE0B0094367B /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C26AAA11D5CE0B0094367B /* SBJsonWriter.m */; };
+		14C26B0D11D5D8110094367B /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14C26B0C11D5D8110094367B /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* LDRTouchAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* LDRTouchAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -146,19 +153,27 @@
 		14BACAEA0EC4BD730037E340 /* AddPinOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPinOperation.m; sourceTree = "<group>"; };
 		14BACAEC0EC4BD850037E340 /* Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operation.h; sourceTree = "<group>"; };
 		14BACCD50EC9BB330037E340 /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
-		14FF44B510F7B11C0040F160 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		14FF44B610F7B11C0040F160 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		14FF44B710F7B11C0040F160 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		14FF44B810F7B11C0040F160 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		14FF44B910F7B11C0040F160 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
-		14FF44BA10F7B11C0040F160 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		14FF44BB10F7B11C0040F160 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
-		14FF44BC10F7B11C0040F160 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		14FF44BD10F7B11C0040F160 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
-		14FF44BE10F7B11C0040F160 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		14FF44BF10F7B11C0040F160 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
-		14FF44C010F7B11C0040F160 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
-		14FF44C110F7B11C0040F160 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		14C2698411D548110094367B /* NetworkActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkActivityManager.h; sourceTree = "<group>"; };
+		14C2698511D548110094367B /* NetworkActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkActivityManager.m; sourceTree = "<group>"; };
+		14C26A3911D5C4D60094367B /* NavBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavBack@2x.png"; sourceTree = "<group>"; };
+		14C26A3B11D5C4DF0094367B /* NavForward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavForward@2x.png"; sourceTree = "<group>"; };
+		14C26A4311D5C5950094367B /* unread@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unread@2x.png"; sourceTree = "<group>"; };
+		14C26A5A11D5C9A50094367B /* unread2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unread2@2x.png"; sourceTree = "<group>"; };
+		14C26A5E11D5CA090094367B /* backBarButtonImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backBarButtonImage@2x.png"; sourceTree = "<group>"; };
+		14C26A9E11D5CE0B0094367B /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		14C26A9F11D5CE0B0094367B /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		14C26AA011D5CE0B0094367B /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		14C26AA111D5CE0B0094367B /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		14C26AA211D5CE0B0094367B /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		14C26AA311D5CE0B0094367B /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		14C26AA411D5CE0B0094367B /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		14C26AA511D5CE0B0094367B /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		14C26AA611D5CE0B0094367B /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		14C26AA711D5CE0B0094367B /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		14C26AA811D5CE0B0094367B /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		14C26AA911D5CE0B0094367B /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		14C26AAA11D5CE0B0094367B /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		14C26B0C11D5D8110094367B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* LDRTouchAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDRTouchAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* LDRTouchAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDRTouchAppDelegate.m; sourceTree = "<group>"; };
@@ -182,6 +197,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				14BAC1ED0EC07D080037E340 /* SystemConfiguration.framework in Frameworks */,
+				14C26B0D11D5D8110094367B /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +215,8 @@
 				14BAC57B0EC0A7320037E340 /* CacheManager.m */,
 				14BAC52A0EC09FFE0037E340 /* FeedDownloader.h */,
 				14BAC52B0EC09FFE0037E340 /* FeedDownloader.m */,
+				14C2698411D548110094367B /* NetworkActivityManager.h */,
+				14C2698511D548110094367B /* NetworkActivityManager.m */,
 				14A29FC70F5B1E950077F0BC /* Colors.h */,
 				14A29FC80F5B1E950077F0BC /* Colors.m */,
 				141322660F23098D00E82250 /* Constants.h */,
@@ -220,9 +238,13 @@
 				14BAC4020EC0987D0037E340 /* Icon.png */,
 				14BAC4030EC0987D0037E340 /* settings.png */,
 				14BAC4040EC0987D0037E340 /* unread.png */,
+				14C26A4311D5C5950094367B /* unread@2x.png */,
 				14BAC4050EC0987D0037E340 /* unread2.png */,
+				14C26A5A11D5C9A50094367B /* unread2@2x.png */,
 				14A2A05B0F5B25AA0077F0BC /* NavBack.png */,
+				14C26A3911D5C4D60094367B /* NavBack@2x.png */,
 				14A2A05D0F5B25AA0077F0BC /* NavForward.png */,
+				14C26A3B11D5C4DF0094367B /* NavForward@2x.png */,
 				14BAC4080EC0987D0037E340 /* up.png */,
 				14BAC4090EC0987D0037E340 /* down.png */,
 				1409D0C10ECF4949004866AF /* up2.png */,
@@ -232,6 +254,7 @@
 				14BAC40D0EC0987D0037E340 /* list.png */,
 				14B2FB7A0EFD2F7200AD611D /* refresh.png */,
 				141A011E10B5B4BE008FBEC5 /* backBarButtonImage.png */,
+				14C26A5E11D5CA090094367B /* backBarButtonImage@2x.png */,
 			);
 			name = images;
 			sourceTree = "<group>";
@@ -329,19 +352,19 @@
 		14FDD8F81007A47C00B081AA /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				14FF44B510F7B11C0040F160 /* JSON.h */,
-				14FF44B610F7B11C0040F160 /* NSObject+SBJSON.h */,
-				14FF44B710F7B11C0040F160 /* NSObject+SBJSON.m */,
-				14FF44B810F7B11C0040F160 /* NSString+SBJSON.h */,
-				14FF44B910F7B11C0040F160 /* NSString+SBJSON.m */,
-				14FF44BA10F7B11C0040F160 /* SBJSON.h */,
-				14FF44BB10F7B11C0040F160 /* SBJSON.m */,
-				14FF44BC10F7B11C0040F160 /* SBJsonBase.h */,
-				14FF44BD10F7B11C0040F160 /* SBJsonBase.m */,
-				14FF44BE10F7B11C0040F160 /* SBJsonParser.h */,
-				14FF44BF10F7B11C0040F160 /* SBJsonParser.m */,
-				14FF44C010F7B11C0040F160 /* SBJsonWriter.h */,
-				14FF44C110F7B11C0040F160 /* SBJsonWriter.m */,
+				14C26A9E11D5CE0B0094367B /* JSON.h */,
+				14C26A9F11D5CE0B0094367B /* NSObject+SBJSON.h */,
+				14C26AA011D5CE0B0094367B /* NSObject+SBJSON.m */,
+				14C26AA111D5CE0B0094367B /* NSString+SBJSON.h */,
+				14C26AA211D5CE0B0094367B /* NSString+SBJSON.m */,
+				14C26AA311D5CE0B0094367B /* SBJSON.h */,
+				14C26AA411D5CE0B0094367B /* SBJSON.m */,
+				14C26AA511D5CE0B0094367B /* SBJsonBase.h */,
+				14C26AA611D5CE0B0094367B /* SBJsonBase.m */,
+				14C26AA711D5CE0B0094367B /* SBJsonParser.h */,
+				14C26AA811D5CE0B0094367B /* SBJsonParser.m */,
+				14C26AA911D5CE0B0094367B /* SBJsonWriter.h */,
+				14C26AAA11D5CE0B0094367B /* SBJsonWriter.m */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -391,10 +414,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				14BAC1EC0EC07D080037E340 /* SystemConfiguration.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
+				14BAC1EC0EC07D080037E340 /* SystemConfiguration.framework */,
+				14C26B0C11D5D8110094367B /* iAd.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -468,6 +492,11 @@
 				14A2A0610F5B25AA0077F0BC /* NavForward.png in Resources */,
 				14A2A55C0F5C60430077F0BC /* Entitlements.plist in Resources */,
 				141A011F10B5B4BE008FBEC5 /* backBarButtonImage.png in Resources */,
+				14C26A3A11D5C4D60094367B /* NavBack@2x.png in Resources */,
+				14C26A3C11D5C4DF0094367B /* NavForward@2x.png in Resources */,
+				14C26A4411D5C5950094367B /* unread@2x.png in Resources */,
+				14C26A5B11D5C9A50094367B /* unread2@2x.png in Resources */,
+				14C26A5F11D5CA090094367B /* backBarButtonImage@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,12 +536,13 @@
 				14A29FCF0F5B209B0077F0BC /* FeedBackgroundCell.m in Sources */,
 				14A29FDD0F5B24710077F0BC /* PinListBackgroundCell.m in Sources */,
 				146E8D5E10015A0000C14C28 /* TableCellDrawing.m in Sources */,
-				14FF44C210F7B11C0040F160 /* NSObject+SBJSON.m in Sources */,
-				14FF44C310F7B11C0040F160 /* NSString+SBJSON.m in Sources */,
-				14FF44C410F7B11C0040F160 /* SBJSON.m in Sources */,
-				14FF44C510F7B11C0040F160 /* SBJsonBase.m in Sources */,
-				14FF44C610F7B11C0040F160 /* SBJsonParser.m in Sources */,
-				14FF44C710F7B11C0040F160 /* SBJsonWriter.m in Sources */,
+				14C2698611D548110094367B /* NetworkActivityManager.m in Sources */,
+				14C26AAB11D5CE0B0094367B /* NSObject+SBJSON.m in Sources */,
+				14C26AAC11D5CE0B0094367B /* NSString+SBJSON.m in Sources */,
+				14C26AAD11D5CE0B0094367B /* SBJSON.m in Sources */,
+				14C26AAE11D5CE0B0094367B /* SBJsonBase.m in Sources */,
+				14C26AAF11D5CE0B0094367B /* SBJsonParser.m in Sources */,
+				14C26AB011D5CE0B0094367B /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,11 +579,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "56DD5709-6F51-455B-B301-C65B856A0F8C";
-				SDKROOT = iphoneos3.1.2;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "504D5F1F-DEBD-4F02-BF31-BE890E468BA3";
+				SDKROOT = iphoneos4.0;
 			};
 			name = Distribution;
 		};
@@ -578,11 +608,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C9D4623-CA43-438F-84FE-846FC855FE5A";
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = "Ad Hoc";
 		};
@@ -634,12 +664,12 @@
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -652,11 +682,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};

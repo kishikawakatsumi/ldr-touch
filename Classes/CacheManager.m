@@ -116,14 +116,14 @@
 			return;
 		}
 	}
-	if (![fileManager createDirectoryAtPath:cacheDirectory attributes:nil]) {
+	if (![fileManager createDirectoryAtPath:cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil]) {
 		return;
 	}
 	
 	srand(time(nil));
 	NSString *entriesDirectory = [NSString stringWithFormat:@"%d%d", time(nil), rand()];
 	NSString *entriesDirectoryPath = [cacheDirectory stringByAppendingPathComponent:entriesDirectory];
-	if (![fileManager createDirectoryAtPath:entriesDirectoryPath attributes:nil]) {
+	if (![fileManager createDirectoryAtPath:entriesDirectoryPath withIntermediateDirectories:YES attributes:nil error:nil]) {
 		return;
 	}
 	

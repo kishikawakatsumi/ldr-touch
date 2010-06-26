@@ -57,8 +57,8 @@ static UIColor *redColor = NULL;
 	blueColor = [Colors blueColor];
 }
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		FeedListBackgroundCell *selectedBackgroundView = [[FeedListBackgroundCell alloc] initWithFrame:[self frame]];
 		[selectedBackgroundView setCell:self];
 		[self setSelectedBackgroundView:selectedBackgroundView];

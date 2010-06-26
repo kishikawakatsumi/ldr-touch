@@ -211,10 +211,10 @@
 	if (indexPath.section == 0 && indexPath.row == 0) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserNameCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"UserNameCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserNameCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
-			UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 0.0, 282.0, 44.0)];
+			UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 11.0, 282.0, 24.0)];
 			inputField.delegate = self;
 			[cell addSubview:inputField];
 			
@@ -229,7 +229,7 @@
 			[inputField setKeyboardType:UIKeyboardTypeASCIICapable];
 			[inputField setReturnKeyType:UIReturnKeyNext];
 			
-			[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+			//[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 			[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 			
 			[inputField setText:userSettings.userName];
@@ -245,10 +245,10 @@
 	} else if (indexPath.section == 0 && indexPath.row == 1) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PassewordCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"PassewordCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PassewordCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
-			UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 0.0, 282.0, 44.0)];
+			UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 11.0, 282.0, 24.0)];
 			inputField.delegate = self;
 			[cell addSubview:inputField];
 			
@@ -264,7 +264,7 @@
 			[inputField setReturnKeyType:UIReturnKeyDone];
 			[inputField setSecureTextEntry:YES];
 			
-			[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+			//[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 			[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 			
 			[inputField setText:userSettings.password];
@@ -280,10 +280,10 @@
 	} else if (indexPath.section == 0 && indexPath.row == 2) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceURICell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"ServiceURICell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceURICell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
-			UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 0.0, 282.0, 44.0)];
+			UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 11.0, 282.0, 24.0)];
 			inputField.delegate = self;
 			[cell addSubview:inputField];
 			
@@ -298,7 +298,7 @@
 			[inputField setKeyboardType:UIKeyboardTypeURL];
 			[inputField setReturnKeyType:UIReturnKeyDone];
 			
-			[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+			//[inputField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 			[inputField setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 			
 			[inputField setText:userSettings.serviceURI];
@@ -312,7 +312,7 @@
 	} else if (indexPath.section == 1 && indexPath.row == 0) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReadFlagCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"ReadFlagCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ReadFlagCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
 			UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0, 178.0, 21.0)];
@@ -335,7 +335,7 @@
 	} else if (indexPath.section == 1 && indexPath.row == 1) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SortOrderCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"SortOrderCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SortOrderCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
 			[cell setAccessoryType:UITableViewCellAccessoryNone];
 			
@@ -386,7 +386,7 @@
 	} else if (indexPath.section == 1 && indexPath.row == 2) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewModeCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"ViewModeCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ViewModeCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
 			[cell setAccessoryType:UITableViewCellAccessoryNone];
 			
@@ -429,14 +429,14 @@
 	} else if (indexPath.section == 2) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UnreadCountCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"UnreadCountCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UnreadCountCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
 			UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0, 178.0, 21.0)];
 			[cell addSubview:description];
 			
 			[description setAdjustsFontSizeToFitWidth:NO];
-			[description setFont:[UIFont boldSystemFontOfSize:13]];
+			[description setFont:[UIFont boldSystemFontOfSize:14]];
 			[description setText:NSLocalizedString(@"ShowBadge", nil)];
 			
 			[description release];
@@ -452,14 +452,14 @@
 	} else if (indexPath.section == 3 && indexPath.row == 0) {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UseMobileProxyCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"UseMobileProxyCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UseMobileProxyCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
 			UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0, 178.0, 21.0)];
 			[cell addSubview:description];
 			
 			[description setAdjustsFontSizeToFitWidth:NO];
-			[description setFont:[UIFont boldSystemFontOfSize:13]];
+			[description setFont:[UIFont boldSystemFontOfSize:14]];
 			[description setText:NSLocalizedString(@"UseMobileProxy", nil)];
 			
 			[description release];
@@ -475,14 +475,14 @@
 	} else {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AutoRotationCell"];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"AutoRotationCell"] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AutoRotationCell"] autorelease];
 			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			
 			UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0, 178.0, 21.0)];
 			[cell addSubview:description];
 			
 			[description setAdjustsFontSizeToFitWidth:NO];
-			[description setFont:[UIFont boldSystemFontOfSize:13]];
+			[description setFont:[UIFont boldSystemFontOfSize:14]];
 			[description setText:NSLocalizedString(@"AutoRotation", nil)];
 			
 			[description release];

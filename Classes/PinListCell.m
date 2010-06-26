@@ -34,8 +34,8 @@ static UIColor *grayColor = NULL;
 	grayColor = [Colors grayColor];
 }
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		[self setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 		PinListBackgroundCell *selectedBackgroundView = [[PinListBackgroundCell alloc] initWithFrame:[self frame]];
 		[selectedBackgroundView setCell:self];

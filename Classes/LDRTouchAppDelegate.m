@@ -147,9 +147,8 @@ static LoginManager *loginManager = NULL;
 
 #pragma mark <UIApplicationDelegate> Methods
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	LOG_CURRENT_METHOD;
-	//[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	
 	[self loadUserSettings];
 	
@@ -164,9 +163,28 @@ static LoginManager *loginManager = NULL;
 	sharedSiteViewController = [[SiteViewController alloc] init];
 	sharedSiteViewController.view.autoresizesSubviews = YES;
 	sharedSiteViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    UIDevice* device = [UIDevice currentDevice];
+    BOOL backgroundSupported = NO;
+    if ([device respondsToSelector:@selector(isMultitaskingSupported)]) {
+        backgroundSupported = device.multitaskingSupported;
+    }
+    if (backgroundSupported) {
+        UIBackgroundTaskIdentifier backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
+            LOG(@"%@", @"End background task.");
+            [application endBackgroundTask:backgroundTask];
+        }];
+    }
 	
 	[window addSubview:[navigationController view]];
 	[window makeKeyAndVisible];
+    
+    return YES;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+	LOG_CURRENT_METHOD;
+	[self saveUserSettings];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -13,6 +13,7 @@
 	FeedViewController *feedViewController;
 	
 	BOOL backedFromSiteView;
+    BOOL shouldReload;
 }
 
 @property (nonatomic, retain) EntryView *entryView;

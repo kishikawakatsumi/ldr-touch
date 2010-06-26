@@ -6,6 +6,7 @@
 #import "LDRTouchAppDelegate.h"
 #import "LoginManager.h"
 #import "CacheManager.h"
+#import "NetworkActivityManager.h"
 #import "Reachability.h";
 #import "JSON.h"
 #import "NSString+XMLExtensions.h"
@@ -66,12 +67,9 @@ static NSString *starBlank = NULL;
 	[downloader release];
 	[conn setDelegate:nil];
 	[conn release];
-	
-	[modifiedTimeLabel release];
-	[modifiedDateLabel release];
     
 	[feedListView setDelegate:nil];
-	[feedListView release];
+    
     [super dealloc];
 }
 
@@ -105,7 +103,7 @@ static NSString *starBlank = NULL;
 	LOG_CURRENT_METHOD;
 	[refreshButton setEnabled:NO];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[NetworkActivityManager sharedInstance] pushActivity];
 	
 	LoginManager *loginManager = [LDRTouchAppDelegate sharedLoginManager];
 	if (!loginManager.api_key) {
@@ -128,6 +126,7 @@ static NSString *starBlank = NULL;
 }
 
 - (void)httpClientSucceeded:(HttpClient*)sender response:(NSHTTPURLResponse*)response data:(NSData*)data {
+    LOG_CURRENT_METHOD;
 	NSString *s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	
 	NSArray *listOfFeed = [s JSONValue];
@@ -150,7 +149,7 @@ static NSString *starBlank = NULL;
 	
 	[refreshButton setEnabled:YES];
 	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 	
 	[CacheManager saveFeedList:feedList];
 	
@@ -160,6 +159,12 @@ static NSString *starBlank = NULL;
 	
 	[downloader cancel];
 	
+    [[NetworkActivityManager sharedInstance] pushActivity];
+    [[NetworkActivityManager sharedInstance] pushActivity];
+    [[NetworkActivityManager sharedInstance] pushActivity];
+    [[NetworkActivityManager sharedInstance] pushActivity];
+    [[NetworkActivityManager sharedInstance] pushActivity];
+    
 	downloader = [[FeedDownloader alloc] initWithFeedList:feedList];
 	[downloader setDelegate:self];
 	[downloader start];
@@ -168,10 +173,11 @@ static NSString *starBlank = NULL;
 - (void)httpClientFailed:(HttpClient*)sender error:(NSError*)error {
 	[self reset];
 	[refreshButton setEnabled:YES];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)feedDownloaderDidEntryDownloadSucceeded:(FeedDownloader *)sender {
+    LOG_CURRENT_METHOD;
 	[feedListView reloadData];
 }
 
@@ -180,6 +186,12 @@ static NSString *starBlank = NULL;
 	[sender setDelegate:nil];
 	[sender release];
 	downloader = nil;
+    
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)feedDownloaderCanceled:(FeedDownloader *)sender {
@@ -187,6 +199,12 @@ static NSString *starBlank = NULL;
 	[sender setDelegate:nil];
 	[sender release];
 	downloader = nil;
+    
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)feedDownloaderFailed:(FeedDownloader *)sender error:error {
@@ -194,14 +212,22 @@ static NSString *starBlank = NULL;
 	[sender setDelegate:nil];
 	[sender release];
 	downloader = nil;
+    
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
+    [[NetworkActivityManager sharedInstance] popActivity];
 }
 
 - (void)loginManagerSucceeded:(LoginManager *)sender apiKey:(NSString *)apiKey {
+    LOG_CURRENT_METHOD;
 	[sender setDelegate:nil];
 	[self loadFeedList];
 }
 
 - (void)loginManagerFailed:(LoginManager *)sender error:(NSError *)error {
+    LOG_CURRENT_METHOD;
 	[refreshButton setEnabled:YES];
 	
 	[sender setDelegate:nil];
@@ -460,7 +486,7 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
     static NSString *CellIdentifier = @"FeedListCell";
 	FeedListCell *cell = (FeedListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		cell = [[[FeedListCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f) reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[FeedListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 	
 	NSDictionary *feed = [[organizedFeedList objectForKey:[sectionHeaders objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
@@ -561,6 +587,31 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	[settingButton release];
 	[contentView addSubview:toolbar];
 	[toolbar release];
+	
+	modifiedDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(47.0f, 11.0f, 60.0f, 21.0f)];
+	[modifiedDateLabel setFont:[UIFont systemFontOfSize:12.0f]];
+	[modifiedDateLabel setTextColor:[UIColor whiteColor]];
+	[modifiedDateLabel setBackgroundColor:[UIColor clearColor]];
+	[toolbar addSubview:modifiedDateLabel];
+    [modifiedDateLabel release];
+	
+	modifiedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(101.0f, 11.0f, 100.0f, 21.0f)];
+	[modifiedTimeLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+	[modifiedTimeLabel setTextColor:[UIColor whiteColor]];
+	[modifiedTimeLabel setBackgroundColor:[UIColor clearColor]];
+	[toolbar addSubview:modifiedTimeLabel];
+    [modifiedTimeLabel release];
+    
+    Class clazz = NSClassFromString(@"ADBannerView");
+    if (clazz) {
+        adView = [[clazz alloc] initWithFrame:CGRectZero];
+        adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;
+        adView.delegate = self;
+        
+        feedListView.tableFooterView = adView;
+        
+        [adView release];
+    }
 }
 
 - (void)viewDidLoad {
@@ -568,18 +619,6 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	
 	LDRTouchAppDelegate *sharedLDRTouchApp = [LDRTouchAppDelegate sharedLDRTouchApp];
 	UserSettings *userSettings = sharedLDRTouchApp.userSettings;
-	
-	modifiedDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(47.0f, 11.0f, 60.0f, 21.0f)];
-	[modifiedDateLabel setFont:[UIFont systemFontOfSize:12.0f]];
-	[modifiedDateLabel setTextColor:[UIColor whiteColor]];
-	[modifiedDateLabel setBackgroundColor:[UIColor clearColor]];
-	[toolbar addSubview:modifiedDateLabel];
-	
-	modifiedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(101.0f, 11.0f, 100.0f, 21.0f)];
-	[modifiedTimeLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
-	[modifiedTimeLabel setTextColor:[UIColor whiteColor]];
-	[modifiedTimeLabel setBackgroundColor:[UIColor clearColor]];
-	[toolbar addSubview:modifiedTimeLabel];
 	
 	if (userSettings.lastModified) {
 		[modifiedDateLabel setText:[dateFormatter stringFromDate:userSettings.lastModified]];
@@ -604,13 +643,29 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 	
 	self.title = [NSString stringWithFormat:@"%@ (%d)", NSLocalizedString(@"AppName", nil), userSettings.numberOfUnread];
 	
-	[self.feedListView deselectRowAtIndexPath:[self.feedListView indexPathForSelectedRow] animated:YES];
-	[self.feedListView reloadData];
+    [feedListView flashScrollIndicators];
+	[feedListView deselectRowAtIndexPath:[self.feedListView indexPathForSelectedRow] animated:YES];
+	[feedListView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 	LOG_CURRENT_METHOD;
 }
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    feedListView = nil;
+}
+
+#pragma mark <ADBannerViewDelegate> Methods
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    LOG_CURRENT_METHOD;
+    return YES;
+}  
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+    LOG_CURRENT_METHOD;
+}    
 
 @end
