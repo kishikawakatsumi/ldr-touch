@@ -11,6 +11,8 @@
 	
 	UserSettings *userSettings;
 	NSString *dataFilePath;
+    
+    UIBackgroundTaskIdentifier backgroundTask;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

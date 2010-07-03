@@ -609,6 +609,7 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
         adView.delegate = self;
         
         feedListView.tableFooterView = adView;
+        bannerIsVisible = YES;
         
         [adView release];
     }
@@ -659,13 +660,24 @@ NSInteger compareFeedListBySubscribeID(id arg1, id arg2, void *context) {
 }
 
 #pragma mark <ADBannerViewDelegate> Methods
+
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
     LOG_CURRENT_METHOD;
     return YES;
-}  
+}
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
     LOG_CURRENT_METHOD;
 }    
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    if (bannerIsVisible) {
+        [UIView beginAnimations:nil context:NULL];
+        adView.delegate = nil;
+        feedListView.tableFooterView = nil;
+        [UIView commitAnimations];
+        bannerIsVisible = NO;
+    }
+}
 
 @end

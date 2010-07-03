@@ -12,6 +12,7 @@
 	NSArray *items;
     
     ADBannerView *adView;
+    BOOL bannerIsVisible;
 }
 
 @property (nonatomic, retain) FeedView *feedView;

@@ -282,7 +282,8 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
         adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;
         adView.delegate = self;
         
-        self.feedView.tableView.tableFooterView = adView;
+        feedView.tableView.tableFooterView = adView;
+        bannerIsVisible = YES;
         
         [adView release];
     }
@@ -304,6 +305,27 @@ NSInteger compareEntriesByDate(id arg1, id arg2, void *context) {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 	LOG_CURRENT_METHOD;
+}
+
+#pragma mark <ADBannerViewDelegate> Methods
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    LOG_CURRENT_METHOD;
+    return YES;
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+    LOG_CURRENT_METHOD;
+}    
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    if (bannerIsVisible) {
+        [UIView beginAnimations:nil context:NULL];
+        adView.delegate = nil;
+        feedView.tableView.tableFooterView = nil;
+        [UIView commitAnimations];
+        bannerIsVisible = NO;
+    }
 }
 
 @end

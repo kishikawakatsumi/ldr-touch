@@ -170,7 +170,7 @@ static LoginManager *loginManager = NULL;
         backgroundSupported = device.multitaskingSupported;
     }
     if (backgroundSupported) {
-        UIBackgroundTaskIdentifier backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
             LOG(@"%@", @"End background task.");
             [application endBackgroundTask:backgroundTask];
         }];
